@@ -11,34 +11,46 @@ stock_routes = Blueprint("stocks", __name__)
 @stock_routes.route("/")
 @login_required
 def stocks():
+
+    # try:
+
     
-    all_stocks = db.session.query(
-        Stock.id,
-        Stock.ticker,
-        Stock.company_name,
-        Stock.company_info,
-        Stock.image_url,
-        Stock.updated_price,
-        db.session.query(UserStock).filter(UserStock.stock_id == Stock.id, UserStock.user_id == current_user.get_id()).exists().label("is_in_portfolio"),
-        db.session.query(WatchlistStock).filter(WatchlistStock.stock_id == Stock.id, WatchlistStock.user_id == current_user.get_id()).exists().label("is_in_watchlist")
-    ).all()
+        all_stocks = db.session.query(
+            Stock.id,
+            Stock.ticker,
+            Stock.company_name,
+            Stock.company_info,
+            Stock.image_url,
+            Stock.updated_price,
+            db.session.query(UserStock).filter(UserStock.stock_id == Stock.id, UserStock.user_id == current_user.get_id()).exists().label("is_in_portfolio"),
+            db.session.query(WatchlistStock).filter(WatchlistStock.stock_id == Stock.id, WatchlistStock.user_id == current_user.get_id()).exists().label("is_in_watchlist")
+        ).all()
 
-    all_stocks_dict = [{
-        "id": stock.id,
-        "ticker": stock.ticker,
-        "company_name": stock.company_name,
-        "company_info": stock.company_info,
-        "image_url": stock.image_url,
-        "updated_price": stock.updated_price,
-        "is_in_portfolio": stock.is_in_portfolio,
-        "is_in_watchlist": stock.is_in_watchlist
+        all_stocks_dict = [{
+            "id": stock.id,
+            "ticker": stock.ticker,
+            "company_name": stock.company_name,
+            "company_info": stock.company_info,
+            "image_url": stock.image_url,
+            "updated_price": stock.updated_price,
+            "is_in_portfolio": stock.is_in_portfolio,
+            "is_in_watchlist": stock.is_in_watchlist
 
-    } for stock in all_stocks]
+        } for stock in all_stocks]
 
-    data = {"stocks": all_stocks_dict}
-    response = make_response(jsonify(data), 200)  # Sets a 404 Not Found status code
-    response.headers["Content-Type"] = "application/json"
-    return response
+        data = {"stocks": all_stocks_dict}
+        response = make_response(jsonify(data), 200)  # Sets a 404 Not Found status code
+        response.headers["Content-Type"] = "application/json"
+        return response
+
+    # except(e):
+
+    #     data = {"message": ""}
+    #     response = make_response(jsonify(data), 200)  # Sets a 404 Not Found status code
+    #     response.headers["Content-Type"] = "application/json"
+    #     return response
+
+
 
 
 
