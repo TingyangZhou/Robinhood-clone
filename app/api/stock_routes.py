@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, make_response, jsonify
 from flask_login import login_required, current_user
 
 # from app.api.aws import get_unique_filename, upload_file_to_s3
@@ -35,7 +35,11 @@ def stocks():
 
     } for stock in all_stocks]
 
-    return {"stocks": all_stocks_dict}
+    data = {"stocks": all_stocks_dict}
+    response = make_response(jsonify(data), 200)  # Sets a 404 Not Found status code
+    response.headers["Content-Type"] = "application/json"
+    return response
+
 
 
 # def format_errors(validation_errors):
