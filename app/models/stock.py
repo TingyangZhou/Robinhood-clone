@@ -1,4 +1,5 @@
 from .db import SCHEMA, add_prefix_for_prod, db, environment
+from .userStock import UserStock
 
 class Stock(db.Model):
     __tablename__ = "stocks"
@@ -16,6 +17,9 @@ class Stock(db.Model):
     company_info = db.Column(db.String())
     image_url = db.Column(db.String())
     updated_price = db.Column(db.Float(precision=2))
+
+    userStocks = db.relationship("UserStock", backref="stocks", cascade="all, delete-orphan")
+    watchlistStocks = db.relationship("WatchlistStock", backref="stocks", cascade="all, delete-orphan")
 
 
 #     tweet = db.Column(db.Text)

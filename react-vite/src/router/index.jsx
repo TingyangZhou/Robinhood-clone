@@ -14,8 +14,8 @@ export const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />,
-                loader: api.getAllTweets,
-                action: api.postNewTweet,
+                // loader: api.getAllTweets,
+                // action: api.postNewTweet,
             },
             {
                 path: 'login',

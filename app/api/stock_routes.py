@@ -1,9 +1,9 @@
 from flask import Blueprint, request
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 # from app.api.aws import get_unique_filename, upload_file_to_s3
 # from app.forms import TweetForm
-from app.models import Stock, db
+from app.models import Stock, WatchlistStock, UserStock, db
 
 stock_routes = Blueprint("stocks", __name__)
 
@@ -11,7 +11,31 @@ stock_routes = Blueprint("stocks", __name__)
 @stock_routes.route("/")
 @login_required
 def stocks():
-    return "kjwbvlbwlv"
+    
+    all_stocks = db.session.query(
+        Stock.id,
+        Stock.ticker,
+        Stock.company_name,
+        Stock.company_info,
+        Stock.image_url,
+        Stock.updated_price,
+        db.session.query(UserStock).filter(UserStock.stock_id == Stock.id, UserStock.user_id == current_user.get_id()).exists().label("is_in_portfolio"),
+        db.session.query(WatchlistStock).filter(WatchlistStock.stock_id == Stock.id, WatchlistStock.user_id == current_user.get_id()).exists().label("is_in_watchlist")
+    ).all()
+
+    all_stocks_dict = [{
+        "id": stock.id,
+        "ticker": stock.ticker,
+        "company_name": stock.company_name,
+        "company_info": stock.company_info,
+        "image_url": stock.image_url,
+        "updated_price": stock.updated_price,
+        "is_in_portfolio": stock.is_in_portfolio,
+        "is_in_watchlist": stock.is_in_watchlist
+
+    } for stock in all_stocks]
+
+    return {"stocks": all_stocks_dict}
 
 
 # def format_errors(validation_errors):

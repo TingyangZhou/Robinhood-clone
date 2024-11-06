@@ -11,7 +11,7 @@ export default function Home() {
     return (
         <>
             <h1>Welcome to Tweeter!</h1>
-            <CreateTweet />
+            {/* <CreateTweet />
 
             {data.tweets.map((el) => {
                 return (
@@ -35,7 +35,7 @@ export default function Home() {
                         </ul>
                     </div>
                 );
-            })}
+            })} */}
         </>
     );
 }

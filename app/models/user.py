@@ -17,6 +17,9 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     cash_balance = db.Column(db.Float(precision=2), default=0.00)
 
+    userStocks = db.relationship("UserStock", backref="users", cascade="all, delete-orphan")
+    watchlistStocks = db.relationship("WatchlistStock", backref="users", cascade="all, delete-orphan")
+
     # Related data
     # tweets = db.relationship("Tweet", back_populates="author")
     # liked_tweets = db.relationship("Tweet", back_populates="liked_by", secondary=likes)
