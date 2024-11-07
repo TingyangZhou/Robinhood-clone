@@ -59,7 +59,7 @@ function LoginFormPage() {
         {errors.password && <p>{errors.password}</p>}
         <button type="submit">Log In</button>
       </form>
-      <button className='SignUpLink' onClick={e=>navigate('/signup')}>Dont have an account yet? Sign up one here.</button>
+      <button className='SignUpLink' onClick={()=>navigate('/signup')}>Dont have an account yet? Sign up one here.</button>
     </>
   );
 }
