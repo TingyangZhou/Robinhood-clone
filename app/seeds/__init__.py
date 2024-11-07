@@ -15,17 +15,6 @@ seed_commands = AppGroup("seed")
 # Creates the `flask seed all` command
 @seed_commands.command("all")
 def seed():
-    # ! Undo all seeds
-    undo_watchlist_stocks()
-    undo_user_stocks()
-    undo_stocks()
-    undo_users()
-
-    # ? Apply all seeds
-    seed_users()
-    seed_stocks()
-    seed_user_stocks()
-    seed_watchlist_stocks()
     if environment == "production":
         # Before seeding in production, you want to run the seed undo
         # command, which will  truncate all tables prefixed with
@@ -36,10 +25,10 @@ def seed():
         undo_stocks()
         undo_users()
 
-        seed_users()
-        seed_stocks()
-        seed_user_stocks()
-        seed_watchlist_stocks()
+    seed_users()
+    seed_stocks()
+    seed_user_stocks()
+    seed_watchlist_stocks()
 
 
 # Creates the `flask seed undo` command
