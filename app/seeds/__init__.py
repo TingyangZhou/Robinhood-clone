@@ -47,6 +47,6 @@ def seed():
 def undo():
     # undo_tweets()
     undo_watchlist_stocks()
-    undo_users()
     undo_user_stocks()
+    undo_users()
     undo_stocks()
