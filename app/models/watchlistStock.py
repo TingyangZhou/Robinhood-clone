@@ -1,7 +1,7 @@
 from .db import SCHEMA, add_prefix_for_prod, db, environment
 
 class WatchlistStock(db.Model):
-    __tablename__ = "watchlistStocks"
+    __tablename__ = "watchlist_stocks"
 
 
 #     __tablename__ = "tweets"
@@ -13,3 +13,5 @@ class WatchlistStock(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete="CASCADE"), nullable=False)
     stock_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('stocks.id'), ondelete="CASCADE"), nullable=False)
+    
+    

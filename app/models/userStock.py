@@ -1,7 +1,7 @@
 from .db import SCHEMA, add_prefix_for_prod, db, environment
 
 class UserStock(db.Model):
-    __tablename__ = "userStocks"
+    __tablename__ = "user_stocks"
 
 
 #     __tablename__ = "tweets"

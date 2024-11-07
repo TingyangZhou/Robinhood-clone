@@ -18,8 +18,8 @@ class Stock(db.Model):
     image_url = db.Column(db.String())
     updated_price = db.Column(db.Float(precision=2))
 
-    userStocks = db.relationship("UserStock", backref="stocks", cascade="all, delete-orphan")
-    watchlistStocks = db.relationship("WatchlistStock", backref="stocks", cascade="all, delete-orphan")
+    user_stocks = db.relationship("UserStock", backref="stocks", cascade="all, delete-orphan")
+    watchlist_stocks = db.relationship("WatchlistStock", backref="stocks", cascade="all, delete-orphan")
 
 
 #     tweet = db.Column(db.Text)
