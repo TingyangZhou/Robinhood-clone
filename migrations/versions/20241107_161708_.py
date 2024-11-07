@@ -25,7 +25,7 @@ def upgrade():
     op.create_table('stocks',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('ticker', sa.String(length=6), nullable=False),
-    sa.Column('company_name', sa.String(length=20), nullable=False),
+    sa.Column('company_name', sa.String(length=100), nullable=False),
     sa.Column('company_info', sa.String(), nullable=True),
     sa.Column('image_url', sa.String(), nullable=True),
     sa.Column('updated_price', sa.Float(precision=2), nullable=True),
