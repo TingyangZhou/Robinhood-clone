@@ -13,7 +13,7 @@ class Stock(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     ticker = db.Column(db.String(6), nullable=False, unique=True)
-    company_name = db.Column(db.String(20), nullable=False)
+    company_name = db.Column(db.String(100), nullable=False)
     company_info = db.Column(db.String())
     image_url = db.Column(db.String())
     updated_price = db.Column(db.Float(precision=2))
