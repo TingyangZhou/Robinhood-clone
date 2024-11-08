@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
 import { getAllStocksThunk } from '../../redux/stocks';
 import { useEffect } from 'react';
+import AllStocksList from '../AllStocksList';
 
 export default function Home() {
     // const data = useLoaderData();
@@ -20,8 +21,8 @@ export default function Home() {
     }
 
     return (
-        <>
-            <h1>Welcome to Robinhood!</h1>
-        </>
+        <main>
+            <AllStocksList/>
+        </main>
     );
 }
