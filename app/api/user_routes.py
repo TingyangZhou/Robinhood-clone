@@ -1,9 +1,25 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, make_response, request
 from flask_login import login_required, current_user
 
-from app.models import User
+
+from app.models import User, db
+
 
 user_routes = Blueprint("users", __name__)
+
+
+
+
+def user_to_dict(user):
+    return {
+        "id": user.id,
+        "username": user.username,
+        "email": user.email,
+        "cash_balance": user.cash_balance,
+        "createdAt": "2021-11-19 20:39:36"
+        }
+
+
 
 
 @user_routes.route("/")
@@ -16,6 +32,8 @@ def users():
     return {"users": [user.to_dict() for user in users]}
 
 
+
+
 @user_routes.route("/<int:id>")
 @login_required
 def user(id):
@@ -24,22 +42,54 @@ def user(id):
     """
     user = User.query.get(id)
 
+
     if user:
         return user.to_dict()
+
 
     else:
         return {"error": "User Not Found"}, 404
 
+
 @user_routes.route("/current")
 def currUserInfo():
-    user = User.query.get(current_user.id)
+    if current_user.is_authenticated:
+        user = User.query.get(current_user.id)
 
-    return {
-   "id": user.id,
-   "username": user.username,
-   "email": user.email,
-   "cash_balance": user.cash_balance,
-   "createdAt": "2021-11-19 20:39:36"
-}
+
+        response_body = jsonify(user_to_dict(user))
+        response = make_response(response_body,200)
+        response.headers["Content-Type"] = "application/json"
+    else:
+        response_body = jsonify({ "message": "Authentication required"})
+        response = make_response(response_body, 401)
+        response.headers["Content-Type"] = "application/json"
+    return response
+   
+
+
+@user_routes.route("/current", methods=["PATCH"])
+def currUserUpdate():
+    if current_user.is_authenticated:
+        data = request.get_json()
+        new_balance = data.get('New_balance')
+
+
+        currUser = User.query.get(current_user.id)
+        currUser.cash_balance = new_balance
+        db.session.commit()
+
+
+        response_body = jsonify(user_to_dict(currUser))
+        response = make_response(response_body,200)
+        response.headers["Content-Type"] = "application/json"
+
+
+    else:
+        response_body = jsonify({ "message": "Authentication required"})
+        response = make_response(response_body, 401)
+        response.headers["Content-Type"] = "application/json"
+    return response
+
     
 
