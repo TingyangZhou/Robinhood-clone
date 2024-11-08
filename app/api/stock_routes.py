@@ -32,7 +32,6 @@ def stocks():
         "updated_price": stock.updated_price,
         "is_in_portfolio": stock.is_in_portfolio,
         "is_in_watchlist": stock.is_in_watchlist
-
     } for stock in all_stocks]
 
     data = {"stocks": all_stocks_dict}
