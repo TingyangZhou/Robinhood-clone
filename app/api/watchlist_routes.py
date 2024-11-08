@@ -69,4 +69,26 @@ def add_stock(stockId):
 
 
 
+# Delete a Stock from Current User's Watchlist
+@watchlist_routes.route("/<int:stockId>/current", methods=['DELETE'])
+@login_required
+def remove_stock(stockId):
+    stock_to_delete = Stock.query.get(stockId)
 
+    # check if stock with stockId exists, if not return 404 error 
+    if not (stock_to_delete):
+        return jsonify({"message": "Stock couldn't be found"}), 404
+    
+    # retrieve the stock to be removed from watchlist 
+    watchlist_stock = WatchlistStock.query.filter(
+        WatchlistStock.user_id == current_user.id,
+        WatchlistStock.stock_id == stockId).first() 
+    
+    # if the stock is not in watchlist, return error
+    if (not watchlist_stock):
+        return jsonify({"message": "Stock is not in watchlist"}), 400
+    
+    else:
+        db.session.delete(watchlist_stock)
+        db.session.commit()
+        return jsonify({"message": "successfully deleted from watchlist"}), 200
