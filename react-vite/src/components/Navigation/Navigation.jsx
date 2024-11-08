@@ -6,9 +6,6 @@ import { useSelector } from "react-redux";
 function Navigation() {
   const sessionUser = useSelector((state) => state.session.user);
   const profileButtonClassName = sessionUser ? "" : "hidden-profile-button"
-  console.log(profileButtonClassName)
-
-
   return (
     <ul>
       <li>
