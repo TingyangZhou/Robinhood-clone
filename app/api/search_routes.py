@@ -12,7 +12,7 @@ def search_stocks():
     search_query = request.args.get('input', '').strip()
 
     if not search_query:
-        return jsonify({"message": "Stock couldn't be found"}), 404
+        return jsonify({"message": "Search input required"}), 400
     
     search_results = Stock.query.filter(
         Stock.ticker.ilike(f'%{search_query}%') |
