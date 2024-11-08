@@ -6,7 +6,7 @@ export default function Profile() {
     return (
         <>
             <h1>{`${data.username}'s`} Profile</h1>
-            <h2>Has posted {data.Tweets.length} tweets</h2>
+            {/* <h2>Has posted {data.Tweets.length} tweets</h2> */}
         </>
     );
 }
