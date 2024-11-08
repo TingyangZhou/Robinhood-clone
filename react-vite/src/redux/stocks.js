@@ -3,17 +3,6 @@ import { normalizer } from './utils';
 const GET_ALL_STOCKS = 'stocks/getAll';
 const GET_ONE_STOCK = 'stocks/getOne';
 
-const dummyStock = {
-    "id": 1,
-    "ticker": "TSLA",
-    "company_name": "Tesla",
-    "image_url": "fake_image_of_graph.png",
-    "company_info": "Tesla, Inc., founded in 2003, is a leader in electric vehicles and clean energy...",
-    "updated_price": 245.56,
-    "Is_in_watchlist": true,
-    "Is_in_portfolio": false
-  }
-
 const getAllStocks = (stocks) => {
     return {
         type: GET_ALL_STOCKS,
@@ -44,6 +33,17 @@ export const getAllStocksThunk = () => async (dispatch) => {
     if (res.ok) {
         const data = await res.json();
         dispatch(getAllStocks(data.stocks));
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+};
+
+export const getAllSearchStocksThunk = (input) => async (dispatch) => {
+    const res = await fetch(`/api/stocks/search?input=${input}`);
+    if (res.ok) {
+        const data = res;
+        dispatch(getAllStocks(data.search_results));
     } else {
         const errors = await res.json();
         return errors;
