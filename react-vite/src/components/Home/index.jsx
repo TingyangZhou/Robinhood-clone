@@ -4,17 +4,18 @@ import { useDispatch } from 'react-redux';
 import { getAllStocksThunk } from '../../redux/stocks';
 import { useEffect } from 'react';
 import AllStocksList from '../AllStocksList';
+import WatchlistStocksList from '../WatchlistStocksList';
 
 export default function Home() {
     // const data = useLoaderData();
     const dispatch = useDispatch()
+    const sessionUser = useSelector((state) => state.session.user);
+    const allStocks = useSelector((state) => state.stocks.stocks);
 
     useEffect(() => {
         dispatch(getAllStocksThunk())
     }, [dispatch])
 
-
-    const sessionUser = useSelector((state) => state.session.user);
 
     if (!sessionUser) {
         return <Navigate to='/login'></Navigate>
@@ -22,7 +23,8 @@ export default function Home() {
 
     return (
         <main>
-            <AllStocksList/>
+            <AllStocksList stocks={allStocks}/>
+            <WatchlistStocksList/>
         </main>
     );
 }
