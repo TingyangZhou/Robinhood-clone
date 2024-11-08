@@ -24,13 +24,13 @@ export const router = createBrowserRouter([
             {
                 path: 'signup',
                 element: <SignupFormPage />,
-            },
-            {
-                path: 'profile/:userId',
-                element: <Profile />,
-                errorElement: <GenericError />,
-                loader: api.getUserById,
-            },
+            }
+            // {
+            //     path: 'profile/:userId',
+            //     element: <Profile />,
+            //     errorElement: <GenericError />,
+            //     loader: api.getUserById,
+            // },
             // {
             //     path: 'stories/post',
             //     action: () => 'it would hit me!',

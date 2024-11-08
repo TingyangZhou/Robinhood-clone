@@ -9,8 +9,11 @@ stock_routes = Blueprint("stocks", __name__)
 
 
 @stock_routes.route("/")
-@login_required
+# @login_required
 def stocks():
+        print("-------------------------------------")
+
+        print("-------------------------------------")
 
     # try:
 
@@ -41,6 +44,9 @@ def stocks():
         data = {"stocks": all_stocks_dict}
         response = make_response(jsonify(data), 200)  # Sets a 404 Not Found status code
         response.headers["Content-Type"] = "application/json"
+        print("-------------------------------------")
+        print(response)
+        print("-------------------------------------")
         return response
 
     # except(e):
