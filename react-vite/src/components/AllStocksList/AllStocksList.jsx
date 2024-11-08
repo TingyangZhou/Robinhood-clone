@@ -1,10 +1,11 @@
+import './AllStocksList.css'
 export default function AllStocksList({stocks}) {
 
     const stocksFormatter = stocks => {
         const finalHTMLItems = []
         for(const key in stocks){
             finalHTMLItems.push((
-                <div>
+                <div className="stock-list-item">
                     <p>{stocks[key].company_name}</p>
                     <p>{stocks[key].ticker}</p>
                     <p>{stocks[key].updated_price}</p>
@@ -15,9 +16,9 @@ export default function AllStocksList({stocks}) {
         return finalHTMLItems
     }
     return (
-        <section>
+        <section className="stocks-all-list-container">
             <h2>Stocks</h2>
-            <div>
+            <div className='stocks-all-list'>
                 {stocksFormatter(stocks)}
             </div>
         </section>

@@ -5,6 +5,7 @@ import { getAllStocksThunk } from '../../redux/stocks';
 import { useEffect } from 'react';
 import AllStocksList from '../AllStocksList';
 import WatchlistStocksList from '../WatchlistStocksList';
+import "./indexHome.css"
 
 export default function Home() {
     // const data = useLoaderData();
