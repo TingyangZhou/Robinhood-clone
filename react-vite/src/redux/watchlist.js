@@ -1,25 +1,122 @@
-import { normalizer } from './utils';
+// import { normalizer } from './utils';
 
-/** Action Type Constants: */
+// /** Action Type Constants: */
 
-const LOAD_WATCHLIST = "watchlists/LOAD_WATCHLISTS"
-const ADD_TO_WATCHLIST = 'watchlist/ADD_TO_WATCHLIST'
-const REMOVE_FROM_WATCHLIST = 'watchlist/REMOVE_FROM_WATCHLIST'
+// const LOAD_WATCHLIST = "watchlists/LOAD_WATCHLISTS"
+// const ADD_TO_WATCHLIST = 'watchlist/ADD_TO_WATCHLIST'
+// const REMOVE_FROM_WATCHLIST = 'watchlist/REMOVE_FROM_WATCHLIST'
 
 
-/**  Action Creators: */
-const loadWatchlist = (watchlist) => {
-    return {
-        type: LOAD_WATCHLIST,
-        payload: watchlist
-    }
-}
+// /**  Action Creators: */
+// const loadWatchlist = (watchlist) => {
+//     return {
+//         type: LOAD_WATCHLIST,
+//         payload: watchlist
+//     }
+// }
 
-const add_to_watchlist = (stock) => {
-    return {
-        type: ADD_TO_WATCHLIST,
-        payload: stock
-    }
-}
+// const addToWatchlist = (stock) => {
+//     return {
+//         type: ADD_TO_WATCHLIST,
+//         payload: stock
+//     }
+// }
 
-const remove_from_watchlisth = 
+// const removeFromWatchlist = (stock) => {
+//     return {
+//         type: REMOVE_FROM_WATCHLIST,
+//         payload: stock
+//     }
+// }
+
+
+// /** Thunk Action Creators: */
+
+// // get all watchlist
+// export const getAllWatchlistThunk=() => async(dispatch) => {
+//     const res = await fetch('/api/watchlist/current');
+
+//     if (res.ok) {
+//         const watchlist = await res.json();
+//         dispatch(loadWatchlist(watchlist.watchlist_stocks))
+//     } else{
+//         const error = await res.json();
+//         throw error;
+//     }
+// }
+
+// // add to watchlist
+// export const addToWatchlistThunk =(stockId) => async(dispatch) => {
+//     const res = await fetch(`/api/watchlist/${stockId}/current`, {
+//         method: 'POST'
+//     }) //end fetch
+
+//     if (res.ok){
+//         const stockToAdd = await res.json()
+//         dispatch(addToWatchlist(stockToAdd))
+//     } else{
+//         const error = await res.json()
+//         throw error
+//     }
+
+// } 
+
+// // Remove from watchlist thunk
+
+// export const removeFromWatchlistThunk =(stockId) => async(dispatch) => {
+//     const res = await fetch(`/api/watchlist/${stockId}/current`, {
+//         method: 'DELETE'
+//     }) //end fetch
+
+//     if (res.ok){
+//         const result = await res.json();
+//         dispatch(removeFromWatchlist(stockId))
+//         return result;
+//     } else{
+//         const error = await res.json()
+//         throw error
+//     }
+
+// } 
+
+
+// /** Reducers: */
+
+// const watchlistReducer = (state={}, action) =>{
+//     switch(action.type){
+//         case(LOAD_WATCHLIST):{
+//             return {...state, ...normalizer(action.payload)}
+//         }
+//         case(ADD_TO_WATCHLIST):{
+//             return {...state, ...normalizer(action.payload)}
+//         }
+//         case REMOVE_FROM_WATCHLIST: {
+//             let newState = { ...state };
+//             const stockId = action.payload;
+        
+//             let watchlistId_to_remove = null;
+        
+//             // Find watchlist_id from stock_id
+//             for (const key of Object.keys(newState)) {
+//                 if (newState[key].stock_id === stockId) {
+//                     watchlistId_to_remove = key;
+//                     break; // Exit loop once found
+//                 }
+//             }
+        
+//             // Delete the watchlist item if found
+//             if (watchlistId_to_remove !== null) {
+//                 delete newState[watchlistId_to_remove];
+//             }
+        
+//             return newState;
+//         }
+        
+
+//         default:
+//             return state;
+//     }
+// }
+
+
+// export default watchlistReducer

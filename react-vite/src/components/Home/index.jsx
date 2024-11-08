@@ -4,6 +4,8 @@ import { useDispatch } from 'react-redux';
 import { getAllStocksThunk } from '../../redux/stocks';
 import { useEffect } from 'react';
 
+// import { getAllWatchlistThunk } from '../../redux/watchlist';
+
 export default function Home() {
     // const data = useLoaderData();
     const dispatch = useDispatch()
@@ -11,6 +13,10 @@ export default function Home() {
     useEffect(() => {
         dispatch(getAllStocksThunk())
     }, [dispatch])
+
+    // useEffect(()=>{
+    //     dispatch( getAllWatchlistThunk())
+    // }, [dispatch])
 
 
     const sessionUser = useSelector((state) => state.session.user);
