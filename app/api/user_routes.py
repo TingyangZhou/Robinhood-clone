@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from flask_login import login_required
+from flask_login import login_required, current_user
 
 from app.models import User
 
@@ -29,3 +29,17 @@ def user(id):
 
     else:
         return {"error": "User Not Found"}, 404
+
+@user_routes.route("/current")
+def currUserInfo():
+    user = User.query.get(current_user.id)
+
+    return {
+   "id": user.id,
+   "username": user.username,
+   "email": user.email,
+   "cash_balance": user.cash_balance,
+   "createdAt": "2021-11-19 20:39:36"
+}
+    
+
