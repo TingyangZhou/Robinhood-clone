@@ -12,7 +12,7 @@ from .api.user_routes import user_routes
 from .api.portfolio_routes import portfolio_routes
 from .api.watchlist_routes import watchlist_routes
 from .api.stock_detail_routes import stock_detail_routes
-
+from .api.search_routes import search_routes
 
 from .config import Config
 from .models import User, Stock, db
@@ -40,6 +40,7 @@ app.register_blueprint(stock_routes, url_prefix="/api/stocks")
 app.register_blueprint(portfolio_routes, url_prefix="/api/portfolio")
 app.register_blueprint(watchlist_routes, url_prefix="/api/watchlist")
 app.register_blueprint(stock_detail_routes, url_prefix="/api/stocks")
+app.register_blueprint(search_routes, url_prefix="/api/stocks")
 db.init_app(app)
 Migrate(app, db)
 
