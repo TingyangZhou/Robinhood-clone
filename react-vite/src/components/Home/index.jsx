@@ -7,7 +7,7 @@ import AllStocksList from '../AllStocksList';
 import WatchlistStocksList from '../WatchlistStocksList';
 import "./indexHome.css"
 
-// import { getAllWatchlistThunk } from '../../redux/watchlist';
+import { getAllWatchlistThunk, addToWatchlistThunk, removeFromWatchlistThunk } from '../../redux/watchlist';
 
 export default function Home() {
     // const data = useLoaderData();
@@ -15,13 +15,25 @@ export default function Home() {
     const sessionUser = useSelector((state) => state.session.user);
     const allStocks = useSelector((state) => state.stocks.stocks);
 
+    // useEffect(() => {
+    //     dispatch(getAllStocksThunk())
+    // }, [dispatch])
+
+
     useEffect(() => {
-        dispatch(getAllStocksThunk())
+        dispatch(getAllWatchlistThunk())
     }, [dispatch])
 
-    // useEffect(()=>{
-    //     dispatch( getAllWatchlistThunk())
-    // }, [dispatch])
+    useEffect(() => {
+        async function testDeleteToWatchlist() {
+            try {
+                const result = await dispatch(removeFromWatchlistThunk(9));
+            } catch (error) {
+                console.error("Error adding to watchlist:", error);
+            }
+        }
+        testDeleteToWatchlist();
+    }, [dispatch]);
 
 
     if (!sessionUser) {
