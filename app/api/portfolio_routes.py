@@ -11,16 +11,23 @@ portfolio_routes = Blueprint("portfolio", __name__)
 # @login_required
 def get_current_user_portfolio():
     try :
-        current_user_stocks= UserStock.query.filter(UserStock.user_id==current_user.get_id()).all()
+        current_user_stocks = (
+            db.session.query(UserStock, Stock)
+            .join(Stock, UserStock.stock_id == Stock.id)
+            .filter(UserStock.user_id == current_user.get_id())
+            .all()
+        )
         current_user_stocks_dict = [
             {
                 "id": user_stock.id,
-                "user_id": user_stock.user_id,
-                "stock_id": user_stock.stock_id,
-                "share_quantity": user_stock.share_quantity,
-                "share_price": user_stock.share_price
+                "ticker": stock.ticker,
+                "company_name": stock.company_name,
+                "image_url": stock.image_url,
+                "company_info": stock.company_info,
+                "share_price": stock.updated_price,  
+                "Share_quantity": user_stock.share_quantity
             }
-            for user_stock in current_user_stocks
+            for user_stock, stock in current_user_stocks
         ]
         return make_response(jsonify({"portfolio_stocks": current_user_stocks_dict}), 200, {"Content-Type": "application/json"})
     except Exception as e :
