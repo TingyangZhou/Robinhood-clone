@@ -8,11 +8,13 @@ import thunk from 'redux-thunk';
 import sessionReducer from './session';
 import stocksReducer from './stocks';
 import watchlistReducer from './watchlist';
+import userInfoReducer from './users';
 
 const rootReducer = combineReducers({
     session: sessionReducer,
     stocks: stocksReducer,
-    watchlist: watchlistReducer
+    watchlist: watchlistReducer,
+    userInfo: userInfoReducer
 });
 
 let enhancer;
