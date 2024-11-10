@@ -1,4 +1,4 @@
-// app/api/portfolio.js
+// react-vite/src/redux/portfolio.js
 
 const GET_USER_STOCKS = 'portfolio/getUserStocks';
 const ADD_USER_STOCK = 'portfolio/addUserStock';

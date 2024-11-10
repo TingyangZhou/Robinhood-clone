@@ -1,3 +1,5 @@
+// react-vite/src/redux/store.js
+
 import {
     legacy_createStore as createStore,
     applyMiddleware,
@@ -7,10 +9,12 @@ import {
 import thunk from 'redux-thunk';
 import sessionReducer from './session';
 import stocksReducer from './stocks';
+import portfolioReducer from './portfolio';
 
 const rootReducer = combineReducers({
     session: sessionReducer,
-    stocks: stocksReducer
+    stocks: stocksReducer,
+    portfolio: portfolioReducer
 });
 
 let enhancer;
