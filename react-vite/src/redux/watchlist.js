@@ -54,11 +54,11 @@ export const addToWatchlistThunk =(stockId) => async(dispatch) => {
     }) //end fetch
 
     if (res.ok){
-        console.log('-----------hit here--------------');
+        // console.log('-----------hit here--------------');
         const stockToAdd = await res.json()
         dispatch(addToWatchlist(stockToAdd))
     } else{
-        console.log('-----------Error here--------------');
+        // console.log('-----------Error here--------------');
         const error = await res.json()
         throw error
     }
