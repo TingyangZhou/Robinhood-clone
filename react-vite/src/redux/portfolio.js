@@ -1,6 +1,7 @@
 // app/api/portfolio.js
 
-const GET_PORTFOLIO = 'portfolio/getAll';
+const GET_PORTFOLIO = 'portfolio/getPortfolio';
+const CREATE_PORTFOLIO = 'portfolio/createPortfolio';
 const initialState = {
     portfolio: {}
 };
@@ -13,7 +14,14 @@ export const getPortfolioAction = (portfolio) => {
     };
 };
 
-// Thunk Action
+export const createPortfolioAction = (portfolio) => {
+    return {
+        type: CREATE_PORTFOLIO,
+        portfolio
+    };
+};
+
+// Thunk Actions
 export const getAllPortfolioThunk = () => async (dispatch) => {
     const response = await fetch('/api/portfolio', {
         method: 'GET'
@@ -23,10 +31,25 @@ export const getAllPortfolioThunk = () => async (dispatch) => {
     return response;
 };
 
+export const createPortfolioStockThunk = (portfolioData) => async (dispatch) => {
+    const response = await fetch('/api/portfolio', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(portfolioData)
+    });
+    const data = await response.json();
+    dispatch(createPortfolioAction(data));
+    return data;
+};
+
 // Reducer
 const portfolioReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_PORTFOLIO:
+            return {...state, portfolio: action.portfolio};
+        case CREATE_PORTFOLIO:
             return {...state, portfolio: action.portfolio};
         default:
             return state; 
