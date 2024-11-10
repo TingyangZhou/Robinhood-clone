@@ -3,6 +3,7 @@
 const GET_USER_STOCKS = 'portfolio/getUserStocks';
 const ADD_USER_STOCK = 'portfolio/addUserStock';
 const REMOVE_USER_STOCK = 'portfolio/removeUserStock';
+const UPDATE_USER_STOCK = 'portfolio/updateUserStock';
 const initialState = {
     userStocks: []
 };
@@ -26,6 +27,13 @@ export const removeUserStockAction = (stockId) => {
     return {
         type: REMOVE_USER_STOCK,
         stockId
+    };
+};
+
+export const updateUserStockAction = (stock) => {
+    return {
+        type: UPDATE_USER_STOCK,
+        stock
     };
 };
 
@@ -61,7 +69,18 @@ export const removeUserStockThunk = (stockId) => async (dispatch) => {
     return data;
 };
 
-
+export const updateUserStockThunk = (stockId, stockData) => async (dispatch) => {
+    const response = await fetch(`/api/portfolio/${stockId}/current`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(stockData)
+    });
+    const data = await response.json();
+    dispatch(updateUserStockAction(data.stock));
+    return data;
+};
 
 // Reducer
 const portfolioReducer = (state = initialState, action) => {
@@ -72,6 +91,8 @@ const portfolioReducer = (state = initialState, action) => {
             return {...state, userStocks: [...state.userStocks, action.stock]};
         case REMOVE_USER_STOCK:
             return {...state, userStocks: state.userStocks.filter(stock => stock.id !== action.stockId)};
+        case UPDATE_USER_STOCK:
+            return {...state, userStocks: state.userStocks.map(stock => (stock.id === action.stock.id ? action.stock : stock))};
         default:
             return state;
     }
