@@ -14,7 +14,7 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
                     <div className="company-name-list-item"><p>{arrStocks[i].company_name.length > 24 ? arrStocks[i].company_name.substring(0, 23) + "...": arrStocks[i].company_name}</p></div>
                     <div className="ticker-list-item"><p>{arrStocks[i].ticker}</p></div>
                     <div className="updated-price-list-item"><p>${arrStocks[i].updated_price}</p></div>
-                    <div className="button-list-item"><button>{arrStocks[i].is_in_watchlist ? "+" : "-"}</button></div>
+                    <div className="button-list-item"><button>{arrStocks[i].is_in_watchlist ? "-" : "+"}</button></div>
                 </div>
             ))
 

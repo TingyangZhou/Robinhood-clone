@@ -33,9 +33,12 @@
   .updated-price-list-item {
     width: 10%
   }
-
+  
   .button-list-item {
-    width: 5%
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .pagination-footer{

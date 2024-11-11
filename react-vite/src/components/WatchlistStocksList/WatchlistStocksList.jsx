@@ -12,9 +12,9 @@ export default function WatchlistStocksList({ stocks }) {
         for(const key in stocks){
             finalHTMLItems.push((
                 <div key={key}className="watchlist-item">
-                    <p>{stocks[key].ticker}</p>
-                    <p>{stocks[key].updated_price}</p>
-                    <button>-</button>
+                    <div className="watchlist-item-ticker"><p>{stocks[key].ticker}</p></div>
+                    <div className="watchlist-item-updated-price"><p>${stocks[key].updated_price}</p></div>
+                    <div className="watchlist-item-button"><button>-</button></div>
                 </div>
             ))
         }

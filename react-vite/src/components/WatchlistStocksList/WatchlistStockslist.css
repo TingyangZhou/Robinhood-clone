@@ -14,6 +14,22 @@
     height: 50px;
 
   }
+
+.watchlist-item-ticker{
+    width: 40%
+
+}
+.watchlist-item-updated-price{
+    width: 40%
+
+}
+.watchlist-item-button{
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
   
   .watchlist-item {
     padding: 5px;
