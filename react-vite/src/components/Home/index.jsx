@@ -22,6 +22,7 @@ export default function Home() {
 
     useEffect(() => {
         dispatch(getAllWatchlistThunk())
+        dispatch(getAllStocksThunk())
     }, [dispatch])
 
     useEffect(() => {
@@ -42,7 +43,7 @@ export default function Home() {
 
     return (
         <main>
-            <AllStocksList stocks={allStocks}/>
+            <AllStocksList stocks={allStocks} pageSize={12} heightPx={675}/>
             <WatchlistStocksList/>
         </main>
     );
