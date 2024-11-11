@@ -2,6 +2,6 @@
   position: absolute;
 }
 
-.hidden-profile-button {
+.hidden-profile-button, .hidden-home-link {
   display: none;
 }

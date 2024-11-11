@@ -3,12 +3,16 @@ import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
 import { useSelector } from "react-redux";
 
+
+
 function Navigation() {
   const sessionUser = useSelector((state) => state.session.user);
   const profileButtonClassName = sessionUser ? "" : "hidden-profile-button"
+
+  const homeClassname = sessionUser ? "": "hidden-home-link"
   return (
     <ul>
-      <li>
+      <li className={homeClassname}>
         <NavLink to="/">Home</NavLink>
       </li>
 

@@ -14,6 +14,14 @@ function LoginFormPage() {
 
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
+  const handleDemoLogin = () => {
+    const user = {
+      email:'demo@aa.io',
+      password:'password'
+    };
+    return dispatch(thunkLogin(user));
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -32,35 +40,48 @@ function LoginFormPage() {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
-      {errors.length > 0 &&
-        errors.map((message) => <p key={message}>{message}</p>)}
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
-      </form>
-      <button className='SignUpLink' onClick={()=>navigate('/signup')}>Dont have an account yet? Sign up one here.</button>
-    </>
+    <div className='login-page'>
+      <div className='login-section'>
+        
+      <h1 className='login-title'>Log in to Robinhood</h1>
+        {errors.length > 0 &&
+          errors.map((message) => <p key={message}>{message}</p>)}
+          <form className = 'login-form' onSubmit={handleSubmit}>
+          <label>
+            Email
+            <input
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+          {errors.email && <p className='error'>{errors.email}</p>}
+          <label>
+            Password
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+          {errors.password && <p>{errors.password}</p>}
+          <button className= 'login-button' type="submit">Log In</button>
+          <button 
+            onClick ={handleDemoLogin} 
+            className='login-button'
+            type="button">
+            Log In As Demo User
+          </button>
+
+        </form>
+        <a className='SignUpLink' href='/signup'>Dont have an account yet? Sign up one here.</a>
+
+      </div>
+      
+      
+    </div>
   );
 }
 
