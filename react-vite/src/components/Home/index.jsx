@@ -44,7 +44,7 @@ export default function Home() {
 
     return (
         <main>
-            <AllStocksList stocks={allStocks} pageSize={12} heightPx={675}/>
+            {Object.keys(allStocks).length && <AllStocksList stocks={allStocks} pageSize={12} heightPx={675}/>}
             {Object.keys(watchlistStocks).length && <WatchlistStocksList stocks={watchlistStocks}/>}
         </main>
     );

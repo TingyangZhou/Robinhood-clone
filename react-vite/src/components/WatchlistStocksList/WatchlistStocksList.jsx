@@ -1,5 +1,10 @@
 import "./WatchlistStockslist.css"
+import { removeFromWatchlistThunk } from "../../redux/watchlist"
+import { useDispatch } from 'react-redux'
+
+
 export default function WatchlistStocksList({ stocks }) {
+    const dispatch = useDispatch()
 
     const stocksFormatter = () => {
         const finalHTMLItems = []
@@ -14,7 +19,9 @@ export default function WatchlistStocksList({ stocks }) {
                 <div key={key}className="watchlist-item">
                     <div className="watchlist-item-ticker"><p>{stocks[key].ticker}</p></div>
                     <div className="watchlist-item-updated-price"><p>${stocks[key].updated_price}</p></div>
-                    <div className="watchlist-item-button"><button>-</button></div>
+                    <div className="watchlist-item-button"><button onClick={() => {
+                        console.log(stocks[key].stock_id)// need to either get stock id from backend or use the watchliststock.id to remove a stock from watchlist 
+                        dispatch(removeFromWatchlistThunk(stocks[key].stock_id))}}>-</button></div>
                 </div>
             ))
         }
