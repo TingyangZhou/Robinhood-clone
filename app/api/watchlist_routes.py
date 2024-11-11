@@ -74,6 +74,15 @@ def add_stock(stockId):
 @login_required
 def remove_stock(stockId):
     stock_to_delete = Stock.query.get(stockId)
+    # print("====================================")
+    # print("stockId")
+    # print(stockId)
+    # print("stock to delete")
+    # print("watchlists foreign key stock_id")
+    # # print(stock_to_delete.stock_id)
+    # print("actual id")
+    # print(stock_to_delete.id)
+    # print("====================================")
 
     # check if stock with stockId exists, if not return 404 error 
     if not (stock_to_delete):
@@ -82,7 +91,7 @@ def remove_stock(stockId):
     # retrieve the stock to be removed from watchlist 
     watchlist_stock = WatchlistStock.query.filter(
         WatchlistStock.user_id == current_user.id,
-        WatchlistStock.stock_id == stockId).first() 
+        WatchlistStock.id == stockId).first() 
     
     # if the stock is not in watchlist, return error
     if (not watchlist_stock):
