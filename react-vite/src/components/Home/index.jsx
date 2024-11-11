@@ -14,6 +14,7 @@ export default function Home() {
     const dispatch = useDispatch()
     const sessionUser = useSelector((state) => state.session.user);
     const allStocks = useSelector((state) => state.stocks.stocks);
+    const watchlistStocks = useSelector(state => state.watchlist)
 
     // useEffect(() => {
     //     dispatch(getAllStocksThunk())
@@ -25,16 +26,16 @@ export default function Home() {
         dispatch(getAllStocksThunk())
     }, [dispatch])
 
-    useEffect(() => {
-        async function testDeleteToWatchlist() {
-            try {
-                const result = await dispatch(removeFromWatchlistThunk(9));
-            } catch (error) {
-                console.error("Error adding to watchlist:", error);
-            }
-        }
-        testDeleteToWatchlist();
-    }, [dispatch]);
+    // useEffect(() => {
+    //     async function testDeleteToWatchlist() {
+    //         try {
+    //             const result = await dispatch(removeFromWatchlistThunk(9));
+    //         } catch (error) {
+    //             console.error("Error adding to watchlist:", error);
+    //         }
+    //     }
+    //     testDeleteToWatchlist();
+    // }, [dispatch]);
 
 
     if (!sessionUser) {
@@ -44,7 +45,7 @@ export default function Home() {
     return (
         <main>
             <AllStocksList stocks={allStocks} pageSize={12} heightPx={675}/>
-            <WatchlistStocksList/>
+            {Object.keys(watchlistStocks).length && <WatchlistStocksList stocks={watchlistStocks}/>}
         </main>
     );
 }
