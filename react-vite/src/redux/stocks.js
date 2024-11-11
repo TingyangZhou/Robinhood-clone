@@ -1,3 +1,5 @@
+// react-vite/src/components/redux/stocks.js
+
 import { normalizer } from './utils';
 
 const GET_ALL_STOCKS = 'stocks/getAll';
@@ -19,8 +21,9 @@ const getOneStock = (stock) => {
 
 export const getOneStockThunk = (stockId) => async (dispatch) => {
     const res = await fetch(`/api/stocks/${stockId}`);
-    if (!res.ok) {
-        const data = res.json();
+    if (res.ok) {
+        // const data = res.json();
+        const data = await res.json();
         dispatch(getOneStock(data));
     } else {
         const errors = await res.json();
