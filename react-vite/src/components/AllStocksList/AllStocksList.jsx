@@ -2,10 +2,16 @@ import { useState, useEffect } from 'react'
 import './AllStocksList.css'
 import { addToWatchlistThunk } from '../../redux/watchlist'
 import { useDispatch } from 'react-redux'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 export default function AllStocksList({stocks, pageSize, heightPx}) {
     const [currPage, setCurrPage] = useState(1)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const redirectToStockPage = stockId => {
+        navigate(`stocks/${stockId}`)
+    }
 
     
     const stocksFormatter = stocks => {
@@ -14,7 +20,7 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
         const arrStocks = Object.values(stocks)
         for(let i = startingPoint; i < startingPoint + pageSize && i < Object.keys(stocks).length ; i++){
             finalHTMLItems.push((
-                <div key={i} className="stock-list-item">
+                <div onClick={() => redirectToStockPage(arrStocks[i].id)}key={i} className="stock-list-item">
                     <div className="company-name-list-item"><p>{arrStocks[i].company_name.length > 24 ? arrStocks[i].company_name.substring(0, 23) + "...": arrStocks[i].company_name}</p></div>
                     <div className="ticker-list-item"><p>{arrStocks[i].ticker}</p></div>
                     <div className="updated-price-list-item"><p>${arrStocks[i].updated_price}</p></div>

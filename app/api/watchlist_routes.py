@@ -19,7 +19,8 @@ def stocks():
         "company_name": stock.stocks.to_dict_basic()['company_name'],
         "image_url": stock.stocks.to_dict_basic()['image_url'],
         "company_info": stock.stocks.to_dict_basic()['company_info'],
-        "updated_price": stock.stocks.to_dict_basic()['updated_price']} 
+        "updated_price": stock.stocks.to_dict_basic()['updated_price'],
+        "stock_id": stock.stock_id}
         for stock in watchlist
     ]
 
@@ -58,7 +59,8 @@ def add_stock(stockId):
             "image_url": new_watchlist_stock.stocks.to_dict_basic()['image_url'],
             "company_info": new_watchlist_stock.stocks.to_dict_basic()['company_info'],
             "updated_price": new_watchlist_stock.stocks.to_dict_basic()['updated_price'],
-            "Is_in_watchlist": True
+            "Is_in_watchlist": True,
+            "stock_id": new_watchlist_stock.stock_id
             }      
 
         return jsonify(new_watchlist_stock), 200
