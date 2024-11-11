@@ -72,11 +72,11 @@ def currUserInfo():
 def currUserUpdate():
     if current_user.is_authenticated:
         data = request.get_json()
-        new_balance = data.get('New_balance')
-
+        new_balance = data.get('New_balance') # incremental amount
 
         currUser = User.query.get(current_user.id)
-        currUser.cash_balance = new_balance
+        old_balance = currUser.cash_balance 
+        currUser.cash_balance = new_balance + old_balance
         db.session.commit()
 
 

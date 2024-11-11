@@ -6,35 +6,41 @@ from app.models import UserStock, Stock, db
 portfolio_routes = Blueprint("portfolio", __name__)
 
 
-# GET current user portfolio stocks
-@portfolio_routes.route("/current", methods=['GET'])
+
+@portfolio_routes.route("/current", methods=['GET','DELETE'])
 # @login_required
 def get_current_user_portfolio():
     try :
-        current_user_stocks = (
-            db.session.query(UserStock, Stock)
-            .join(Stock, UserStock.stock_id == Stock.id)
-            .filter(UserStock.user_id == current_user.get_id())
-            .all()
-        )
-        current_user_stocks_dict = [
-            {
-                "id": user_stock.id,
-                "ticker": stock.ticker,
-                "company_name": stock.company_name,
-                "image_url": stock.image_url,
-                "company_info": stock.company_info,
-                "share_price": stock.updated_price,  
-                "Share_quantity": user_stock.share_quantity
-            }
-            for user_stock, stock in current_user_stocks
-        ]
-        return make_response(jsonify({"portfolio_stocks": current_user_stocks_dict}), 200, {"Content-Type": "application/json"})
+        if request.method=='GET':
+            current_user_stocks = (
+                db.session.query(UserStock, Stock)
+                .join(Stock, UserStock.stock_id == Stock.id)
+                .filter(UserStock.user_id == current_user.get_id())
+                .all()
+            )
+            current_user_stocks_dict = [
+                {
+                    "id": user_stock.id,
+                    "ticker": stock.ticker,
+                    "company_name": stock.company_name,
+                    "image_url": stock.image_url,
+                    "company_info": stock.company_info,
+                    "share_price": stock.updated_price,  
+                    "share_quantity": user_stock.share_quantity
+                }
+                for user_stock, stock in current_user_stocks
+            ]
+            return make_response(jsonify({"portfolio_stocks": current_user_stocks_dict}), 200, {"Content-Type": "application/json"})
+        elif request.method=='DELETE':
+            user_id = current_user.get_id()
+            db.session.query(UserStock).filter(UserStock.user_id==user_id).delete(synchronize_session=False)
+            db.session.commit()
+            return make_response(jsonify({"message": "successfully deleted"}), 200, {"Content-Type": "application/json"})
     except Exception as e :
         return make_response(jsonify({"message": str(e)}), 500, {"Content-Type": "application/json"})
     
 
-# POST a new stock to the current user's portfolio
+
 @portfolio_routes.route('/<int:stockId>/current',methods=['POST','PATCH','DELETE'])
 @login_required
 def handle_portfolio_stock(stockId):
@@ -64,7 +70,7 @@ def handle_portfolio_stock(stockId):
                 if request.method =='DELETE':
                     db.session.delete(target_user_stock)
                     db.session.commit()
-                    return make_response(jsonify({"message": "successfully deleted"}), 202, {"Content-Type": "application/json"})
+                    return make_response(jsonify({"message": "successfully deleted"}), 200, {"Content-Type": "application/json"})
                 elif request.method =='PATCH':
                     target_user_stock.share_quantity = num_shares
                     db.session.commit()
@@ -77,7 +83,7 @@ def handle_portfolio_stock(stockId):
                 "image_url": stock.image_url,
                 "company_info": stock.company_info,
                 "updated_price": stock.updated_price,
-                "Share_quantity": num_shares
+                "share_quantity": num_shares
             }
             return make_response(jsonify(new_user_stock_dict), 201, {"Content-Type": "application/json"})
         else:
