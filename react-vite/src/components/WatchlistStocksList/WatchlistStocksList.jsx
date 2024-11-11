@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from "react"
 
 
-export default function WatchlistStocksList({ stocks }) {
+export default function WatchlistStocksList() {
     const dispatch = useDispatch()
-    const watchlistStocks = useSelector(state => state.watchlist)
+    const stocks = useSelector(state => state.watchlist)
 
     const stocksFormatter = () => {
         const finalHTMLItems = []
@@ -21,17 +21,12 @@ export default function WatchlistStocksList({ stocks }) {
                 <div key={key}className="watchlist-item">
                     <div className="watchlist-item-ticker"><p>{stocks[key].ticker}</p></div>
                     <div className="watchlist-item-updated-price"><p>${stocks[key].updated_price}</p></div>
-                    <div className="watchlist-item-button"><button onClick={() => {
-                        console.log(stocks[key].stock_id)// need to either get stock id from backend or use the watchliststock.id to remove a stock from watchlist 
-                        dispatch(removeFromWatchlistThunk(stocks[key].id))}}>-</button></div>
+                    <div className="watchlist-item-button"><button onClick={() => {dispatch(removeFromWatchlistThunk(stocks[key].id))}}>-</button></div>
                 </div>
             ))
         }
         return finalHTMLItems
     }
-
-    useEffect(()=> {
-    }, [watchlistStocks])
 
     
     return (

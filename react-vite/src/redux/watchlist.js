@@ -101,25 +101,24 @@ const watchlistReducer = (state={}, action) =>{
             let newState = { ...state };
             const stockId = action.payload;
         
-            let watchlistId_to_remove = null;
+            let watchlist_to_remove = newState[stockId];
         
             // Find watchlist_id from stock_id
-            for (const key of Object.keys(newState)) {
-                if (newState[key].stock_id === stockId) {
-                    watchlistId_to_remove = key;
-                    break; // Exit loop once found
-                }
-            }
+            // for (const key of Object.keys(newState)) {
+            //     if (newState[key].stock_id === stockId) {
+            //         watchlistId_to_remove = key;
+            //         break; // Exit loop once found
+            //     }
+            // }
         
             // Delete the watchlist item if found
-            if (watchlistId_to_remove !== null) {
-                delete newState[watchlistId_to_remove];
+            if (watchlist_to_remove != null) {
+                delete newState[watchlist_to_remove.id];
             }
-        
+
             return newState;
         }
         
-
         default:
             return state;
     }

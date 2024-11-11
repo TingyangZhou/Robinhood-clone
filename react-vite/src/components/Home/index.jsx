@@ -14,7 +14,6 @@ export default function Home() {
     const dispatch = useDispatch()
     const sessionUser = useSelector((state) => state.session.user);
     const allStocks = useSelector((state) => state.stocks.stocks);
-    const watchlistStocks = useSelector(state => state.watchlist)
 
     // useEffect(() => {
     //     dispatch(getAllStocksThunk())
@@ -45,7 +44,7 @@ export default function Home() {
     return (
         <main>
             {Object.keys(allStocks).length && <AllStocksList stocks={allStocks} pageSize={12} heightPx={675}/>}
-            {Object.keys(watchlistStocks).length && <WatchlistStocksList stocks={watchlistStocks}/>}
+            <WatchlistStocksList/>
         </main>
     );
 }
