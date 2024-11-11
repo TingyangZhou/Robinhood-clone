@@ -4,6 +4,7 @@ const GET_USER_STOCKS = 'portfolio/getUserStocks';
 const ADD_USER_STOCK = 'portfolio/addUserStock';
 const REMOVE_USER_STOCK = 'portfolio/removeUserStock';
 const UPDATE_USER_STOCK = 'portfolio/updateUserStock';
+const REMOVE_ALL_USER_STOCKS = 'portfolio/removeAllUserStocks';
 const initialState = {
     userStocks: []
 };
@@ -34,6 +35,13 @@ export const updateUserStockAction = (stock) => {
     return {
         type: UPDATE_USER_STOCK,
         stock
+    };
+};
+
+export const removeAllUserStocksAction = () => {
+    return {
+        type: REMOVE_ALL_USER_STOCKS,
+        payload: null
     };
 };
 
@@ -82,6 +90,18 @@ export const updateUserStockThunk = (stockId, stockData) => async (dispatch) => 
     return data;
 };
 
+export const removeAllUserStocksThunk = () => async (dispatch) => {
+    const response = await fetch('/api/portfolio/current',{method:'DELETE'})
+    if (response.ok) {
+        dispatch(removeAllUserStocksAction())
+    } else{
+        const errors = await response.json();
+        return errors;
+    }
+
+}
+
+
 // Reducer
 const portfolioReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -93,6 +113,8 @@ const portfolioReducer = (state = initialState, action) => {
             return {...state, userStocks: state.userStocks.filter(stock => stock.id !== action.stockId)};
         case UPDATE_USER_STOCK:
             return {...state, userStocks: state.userStocks.map(stock => (stock.id === action.stock.id ? action.stock : stock))};
+        case REMOVE_ALL_USER_STOCKS:
+            return {...state, userStocks: null}
         default:
             return state;
     }
