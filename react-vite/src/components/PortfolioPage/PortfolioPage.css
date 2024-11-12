@@ -1,0 +1,5 @@
+.portfolio-watchlist-stocks-container {
+    display: flex;
+    margin: 0% 10%;
+    justify-content: space-between;
+}
