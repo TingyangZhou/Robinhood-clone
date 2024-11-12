@@ -72,9 +72,18 @@ function PortfolioPage(){
                 <p className='username'>{userInfo? userInfo.username : null}</p>
                 <p className='user-email'>{userInfo? userInfo.email : null}</p>
                 <ul className='balances'>
-                    <li className='user-cash-balance'>Cash Balance : $ {formattedCashBalance}</li>
-                    <li className='stock-value-balance'>Stock Market Value : $ {formattedMarketValue}</li>
-                    <li className='total-balance'>Total Balance : $ {formattedTotalBalance}</li>
+                    <li className='balance-item'>
+                        <span className='balance-description'>Cash Balance:</span>
+                        <span className='balance-amount'>$ {formattedCashBalance}</span>
+                    </li>
+                    <li className='balance-item'>
+                        <span className='balance-description'>Stock Market Value:</span>
+                        <span className='balance-amount'>$ {formattedMarketValue}</span>
+                    </li>
+                    <li className='balance-item'>
+                        <span className='balance-description'>Total Balance:</span>
+                        <span className='balance-amount'>$ {formattedTotalBalance}</span>
+                    </li>
                 </ul>
             </div>
             <div className="header-container">
@@ -85,7 +94,7 @@ function PortfolioPage(){
                 
                 <button className='liquidate-portfolio-button' onClick={handleClick}>Liquidate Portfolio</button>
             </div>
-            <div className="portfolio-watchlist-stocks-container">
+            <div className="portfolio-stocks-container">
                 {lengthOfStockList!==0 && <PortfolioStocksList stocks={userStocks} pageSize={10} heightPx={675}/>}
             </div>
         </div> 
