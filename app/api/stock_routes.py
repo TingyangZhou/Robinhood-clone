@@ -8,8 +8,8 @@ from app.models import Stock, WatchlistStock, UserStock, db
 stock_routes = Blueprint("stocks", __name__)
 
 
-@stock_routes.route("/")
-# @login_required
+@stock_routes.route("")
+@login_required
 def stocks():
 
     all_stocks = db.session.query(
