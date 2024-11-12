@@ -5,7 +5,7 @@ import { getUserInfoThunk, updateUserBalanceThunk } from '../../redux/users.js';
 import { getUserStocksThunk, removeAllUserStocksThunk } from '../../redux/portfolio.js';
 import ConfirmDeleteModal from './DeleteConfirmation.jsx'
 import { useModal } from '../../context/Modal';
-import AllStocksList from '../AllStocksList';
+import PortfolioStocksList from '../PortfolioStocksList';
 
 function PortfolioPage(){
     const dispatch = useDispatch()
@@ -51,16 +51,25 @@ function PortfolioPage(){
 
     }
 
+    let market_value=0
+    for (let stock of userStocks.values()) {
+        market_value += stock.share_quantity * stock.updated_price
+    }
+    const total_balance = market_value + userInfo?.cash_balance;
 
-    const formattedUserBalance = userInfo?.cash_balance ? userInfo.cash_balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0.00";
-
+    const formattedMarketValue=market_value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const formattedCashBalance = userInfo?.cash_balance ? userInfo.cash_balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0.00";
+    const formattedTotalBalance =  userInfo?.cash_balance ? (userInfo.cash_balance+market_value).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0.00";
     return (
         <>
-            <h1>PortfolioPage</h1>
             <div className='user-info'>
                 <p className='username'>{userInfo? userInfo.username : null}</p>
                 <p className='user-email'>{userInfo? userInfo.email : null}</p>
-                <h3 className='user-cash-balance'>$ {formattedUserBalance}</h3>
+                <ul className='balances'>
+                    <li className='user-cash-balance'>Cash Balance : $ {formattedCashBalance}</li>
+                    <li className='stock-value-balance'>Stock Market Value : $ {formattedMarketValue}</li>
+                    <li className='total-balance'>Total Balance : $ {formattedTotalBalance}</li>
+                </ul>
             </div>
             <div className="header-container">
                 <form className="add-fund-form" onSubmit={handleSubmit}>
@@ -71,7 +80,7 @@ function PortfolioPage(){
                 <button className='liquidate-portfolio-button' onClick={handleClick}>Liquidate Portfolio</button>
             </div>
             <div className="portfolio-watchlist-stocks-container">
-                {Object.keys(userStocks).length && <AllStocksList stocks={userStocks} pageSize={10} heightPx={675} pageName='portfolioPage'/>}
+                {Object.keys(userStocks).length && <PortfolioStocksList stocks={userStocks} pageSize={10} heightPx={675}/>}
             </div>
         </> 
     )

@@ -1,34 +1,36 @@
 import { useState } from 'react'
-import './AllStocksList.css'
-import { addToWatchlistThunk } from '../../redux/watchlist'
-import { useDispatch } from 'react-redux'
+import './PortfolioStocksList.css'
+// import { addToWatchlistThunk } from '../../redux/watchlist'
+// import { useDispatch } from 'react-redux'
 // import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-export default function AllStocksList({stocks, pageSize, heightPx, pageName}) {
+export default function PortfolioStocksList({stocks, pageSize, heightPx}) {
     const [currPage, setCurrPage] = useState(1)
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     // const navigate = useNavigate()
-
-    // if from portfolio page, the price column name is share_price; for landing page, the column name is update_price
-    const priceName = pageName=='portfolioPage'? 'share_price':'updated_price';
-    const stockListButtonClassName = pageName=='portfolioPage'? "stock-list-button-hidden" :"stock-list-button";
-    const stockIdName=pageName=='portfolioPage'? "stock_id" :"id";
 
     const stocksFormatter = stocks => {
         const startingPoint = (currPage - 1) * pageSize
-        const finalHTMLItems = []
+        const finalHTMLItems = [(
+            <div key={-1} className="stock-list-header">
+                <div className="company-name-list-item"><p>Company Name</p></div>
+                <div className="ticker-list-item"><p>Ticker</p></div>
+                <div className="updated-price-list-item"><p>Market Price($)</p></div>
+                <div className="quantity-list-item"><p>Quantity</p></div>
+                <div className="market-value-list-item"><p>Value($)</p></div>
+            </div>
+        )]
         const arrStocks = Object.values(stocks)
         for(let i = startingPoint; i < startingPoint + pageSize && i < Object.keys(stocks).length ; i++){
             finalHTMLItems.push((
-                <Link key={arrStocks[i][stockIdName]} to={`/stocks/${arrStocks[i][stockIdName]}`}>
+                <Link key={arrStocks[i].stock_id} to={`/stocks/${arrStocks[i].stock_id}`}>
                 <div key={i} className="stock-list-item">
                     <div className="company-name-list-item"><p>{arrStocks[i].company_name.length > 24 ? arrStocks[i].company_name.substring(0, 23) + "...": arrStocks[i].company_name}</p></div>
                     <div className="ticker-list-item"><p>{arrStocks[i].ticker}</p></div>
-                    <div className="updated-price-list-item"><p>${arrStocks[i][priceName]}</p></div>
-                    <div className="button-list-item"><button className={stockListButtonClassName}
-                                                        onClick={() => dispatch(addToWatchlistThunk(arrStocks[i].id))}
-                                                        >{arrStocks[i].is_in_watchlist ? "-" : "+"}</button></div>
+                    <div className="updated-price-list-item"><p>${arrStocks[i].updated_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p></div>
+                    <div className="quantity-list-item"><p>{arrStocks[i].share_quantity.toLocaleString(undefined)}</p></div>
+                    <div className="market-value-list-item"><p>${(arrStocks[i].updated_price * arrStocks[i].share_quantity).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p></div>
                 </div>
                 </Link>
             ))
