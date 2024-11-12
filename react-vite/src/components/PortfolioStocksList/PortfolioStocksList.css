@@ -219,3 +219,52 @@ button {
   margin-left: 0.625rem;
 }
 
+/* Small Screen Adjustments */
+@media (max-width: 768px) {
+  .stocks-all-list, .header-container, .user-info, .stocks-all-list-container {
+    max-width: 100%;
+    margin: 0.625rem;
+  }
+
+  .stock-list-header, .stock-list-item, .pagination-footer, .balances li {
+    font-size: 0.875rem;
+  }
+
+  .pagination-footer-items-container {
+    width: 4.375rem;
+  }
+
+  .pagination-footer-items-container p {
+    padding: 0.0625rem 0.25rem;
+  }
+
+  .add-fund-form input, .add-fund-button, .liquidate-portfolio-button {
+    width: 100%;
+    margin-bottom: 0.625rem;
+  }
+
+  .add-fund-button, .liquidate-portfolio-button {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .stock-list-item div, .company-name-list-item, .ticker-list-item, .updated-price-list-item, .quantity-list-item, .market-value-list-item {
+    width: auto;
+  }
+
+  .balances {
+    max-width: 100%;
+  }
+
+  .balance-item {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .balance-description, .balance-amount {
+    text-align: left;
+    font-size: 0.875rem;
+    width: 100%;
+  }
+}
