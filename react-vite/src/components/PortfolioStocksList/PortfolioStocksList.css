@@ -1,0 +1,66 @@
+.stocks-all-list {
+    width: 800px;
+    border: 1px solid #cecece;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .stock-list-item {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    height: 35px;
+    border-bottom: 1px solid #eaeaea;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+  }
+
+  .stock-list-item div {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .company-name-list-item {
+    width: 32%
+  }
+
+  .ticker-list-item {
+    width: 10%
+  }
+
+  .updated-price-list-item {
+    width: 10%
+  }
+  
+  .button-list-item {
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .pagination-footer{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .pagination-footer-items-container{
+    display: flex;
+    justify-content: space-between;
+    width: 100px;
+  }
+
+  .pagination-footer-items-container p:hover{
+    cursor: pointer;
+
+  }
+
+  .current-page-link {
+    color: red
+  }
+
+  .stock-list-button-hidden{
+    display:none;
+  }
