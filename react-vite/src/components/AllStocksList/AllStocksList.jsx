@@ -6,10 +6,9 @@ import { Navigate, useNavigate, useLocation } from 'react-router-dom'
 import { getAllStocksThunk, getAllSearchStocksThunk } from '../../redux/stocks'
 
 
-export default function AllStocksList({stocks, pageSize, heightPx, searchStr}) {
+export default function AllStocksList({stocks, pageSize, heightPx}) {
     const [currPage, setCurrPage] = useState(1)
     const watchlistStocks = useSelector(state =>  state.watchlist)
-    const [stocksState, setStocksState] = useState(stocks)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
@@ -23,32 +22,13 @@ export default function AllStocksList({stocks, pageSize, heightPx, searchStr}) {
 
     useEffect(() => {
         if(Object.keys(stocks).length){
-        //     const watchlistStockIds = []
-        //     for(let keys in watchlistStocks){
-        //         watchlistStockIds.push(watchlistStocks[keys].stock_id)
-        //     }
-        //     console.log("here")
-
-        //     for(let keys in stocks){
-        //         if(watchlistStockIds.includes(stocks[keys].id)){
-        //             stocks[keys].is_in_watchlist = true
-
-        //         }
-        //         else{
-        //             console.log(stocks[keys])
-        //             stocks[keys].is_in_watchlist = false
-
-        //         }
-        //     }
-
-        // }
-        if(searchInput){
-            console.log(searchInput)
-            dispatch(getAllSearchStocksThunk(searchInput))
-        }
-        else{
-            dispatch(getAllStocksThunk())
-        }
+            if(searchInput){
+                console.log(searchInput)
+                dispatch(getAllSearchStocksThunk(searchInput))
+            }
+            else{
+                dispatch(getAllStocksThunk())
+            }
         }
 
     }, [watchlistStocks])
@@ -58,8 +38,6 @@ export default function AllStocksList({stocks, pageSize, heightPx, searchStr}) {
         e.stopPropagation()
         if(e.target.innerHTML == '+'){
             dispatch(addToWatchlistThunk(associatedStock.id))
-            // e.target.innerHTML = "-"
-            associatedStock.is_in_watchlist = true
         }
         else{
             const targetWatchlistStock = Object.values(watchlistStocks).find((stock) => {
@@ -68,11 +46,8 @@ export default function AllStocksList({stocks, pageSize, heightPx, searchStr}) {
                 }
             })
             dispatch(removeFromWatchlistThunk(targetWatchlistStock.id))
-            associatedStock.is_in_watchlist = false
-            // e.target.innerHTML = "+"
 
         }
-        // dispatch(addToWatchlistThunk(arrStocks[i].id))
     }
 
 
