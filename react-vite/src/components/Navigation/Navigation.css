@@ -1,6 +1,16 @@
 .profile-dropdown {
   position: absolute;
+  right: 0;
+  margin-right: 20px;
 }
+
+
+.nav-bar-main {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
 
 .hidden-profile-button, .hidden-home-link {
   display: none;
