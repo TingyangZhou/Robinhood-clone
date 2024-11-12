@@ -1,7 +1,7 @@
 import "./WatchlistStockslist.css"
 import { removeFromWatchlistThunk } from "../../redux/watchlist"
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from "react"
+// import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 
 
