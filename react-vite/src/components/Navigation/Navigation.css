@@ -4,6 +4,19 @@
   margin-right: 20px;
 }
 
+.robinhood-logo-home {
+  font-size: 50px;
+}
+
+.robinhood-logo-home:hover {
+  color: #fb641c;
+
+}
+
+.logo-home-container {
+  margin: 10px;
+  margin-left: 30px;
+}
 
 .nav-bar-main {
   display: flex;

@@ -5,6 +5,7 @@ import { getAllSearchStocksThunk, getAllStocksThunk } from "../../redux/stocks";
 import { useDispatch } from "react-redux";
 import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import ProfileButton from "./ProfileButton.jsx"
+import { FaFeather } from "react-icons/fa"
 
 
 
@@ -60,8 +61,8 @@ function Navigation() {
   const navClassName = sessionUser ? "nav-bar-main": "hidden-home-link"
   return (
     <header  className={navClassName}>
-      <div>
-        <NavLink to="/">Home</NavLink>
+      <div className="logo-home-container">
+        <NavLink to="/"><FaFeather className="robinhood-logo-home"/></NavLink>
       </div>
       <div><input
        type="text"
