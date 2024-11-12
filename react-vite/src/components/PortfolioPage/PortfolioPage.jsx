@@ -31,10 +31,12 @@ function PortfolioPage(){
         e.preventDefault();
         
         let totalStockValue = 0
-        for (let userStock of userStocks.values()) {
-            totalStockValue += userStock.share_price * userStock.share_quantity
+        if (userStocks) {
+            for (let userStock of userStocks.values()) {
+                totalStockValue += userStock.share_price * userStock.share_quantity
+            }
         }
-
+        
         setModalContent(
 			<ConfirmDeleteModal
                 stockValue={totalStockValue}
@@ -52,16 +54,20 @@ function PortfolioPage(){
     }
 
     let market_value=0
-    for (let stock of userStocks.values()) {
-        market_value += stock.share_quantity * stock.updated_price
+    let lengthOfStockList = 0
+    if (userStocks) {
+        for (let stock of userStocks.values()) {
+            market_value += stock.share_quantity * stock.updated_price
+        }
+        lengthOfStockList = Object.keys(userStocks).length
     }
+    
     const total_balance = market_value + userInfo?.cash_balance;
-
     const formattedMarketValue=market_value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const formattedCashBalance = userInfo?.cash_balance ? userInfo.cash_balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0.00";
-    const formattedTotalBalance =  userInfo?.cash_balance ? (userInfo.cash_balance+market_value).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0.00";
+    const formattedTotalBalance =  userInfo?.cash_balance ? total_balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0.00";
     return (
-        <>
+        <div className='port-page-container'>
             <div className='user-info'>
                 <p className='username'>{userInfo? userInfo.username : null}</p>
                 <p className='user-email'>{userInfo? userInfo.email : null}</p>
@@ -80,9 +86,9 @@ function PortfolioPage(){
                 <button className='liquidate-portfolio-button' onClick={handleClick}>Liquidate Portfolio</button>
             </div>
             <div className="portfolio-watchlist-stocks-container">
-                {Object.keys(userStocks).length && <PortfolioStocksList stocks={userStocks} pageSize={10} heightPx={675}/>}
+                {lengthOfStockList!==0 && <PortfolioStocksList stocks={userStocks} pageSize={10} heightPx={675}/>}
             </div>
-        </> 
+        </div> 
     )
 }
 
