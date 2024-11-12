@@ -60,3 +60,7 @@
   .current-page-link {
     color: red
   }
+
+  .stock-list-button-hidden{
+    display:none;
+  }
