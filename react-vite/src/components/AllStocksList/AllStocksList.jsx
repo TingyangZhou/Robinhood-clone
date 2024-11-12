@@ -12,7 +12,7 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
 
 
     const redirectToStockPage = stockId => {
-        navigate(`stocks/${stockId}`)
+        navigate(`/stocks/${stockId}`)
     }
 
 
