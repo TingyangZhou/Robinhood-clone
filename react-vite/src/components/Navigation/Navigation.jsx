@@ -36,7 +36,8 @@ function Navigation() {
   const handleSearch = async () => {
 
     if(searchInput == ""){
-       await dispatch(getAllStocksThunk())
+       navigate("/")
+       return
     }
     else{
       await dispatch(getAllSearchStocksThunk(searchInput))
