@@ -21,12 +21,14 @@ export default function PortfolioStocksList({stocks, pageSize, heightPx}) {
                 <div className="market-value-list-item"><p>Value($)</p></div>
             </div>
         )]
+
+
         const arrStocks = Object.values(stocks)
         for(let i = startingPoint; i < startingPoint + pageSize && i < Object.keys(stocks).length ; i++){
             finalHTMLItems.push((
                 <Link key={arrStocks[i].stock_id} to={`/stocks/${arrStocks[i].stock_id}`}>
                 <div key={i} className="stock-list-item">
-                    <div className="company-name-list-item"><p>{arrStocks[i].company_name.length > 24 ? arrStocks[i].company_name.substring(0, 23) + "...": arrStocks[i].company_name}</p></div>
+                    <div className="company-name-list-item"><p>{arrStocks[i].company_name.length > 12 ? arrStocks[i].company_name.substring(0, 11) + "...": arrStocks[i].company_name+"  ".repeat(15-arrStocks[i].company_name.length)}</p></div>
                     <div className="ticker-list-item"><p>{arrStocks[i].ticker}</p></div>
                     <div className="updated-price-list-item"><p>${arrStocks[i].updated_price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p></div>
                     <div className="quantity-list-item"><p>{arrStocks[i].share_quantity.toLocaleString(undefined)}</p></div>
