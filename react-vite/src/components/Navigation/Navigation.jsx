@@ -42,7 +42,7 @@ function Navigation() {
       await dispatch(getAllSearchStocksThunk(searchInput))
     }
     console.log("Search submitted:", searchInput);
-    navigate("/search")
+    navigate("/search", { state: { from: "/search", searchInput: searchInput } })
   };
 
 

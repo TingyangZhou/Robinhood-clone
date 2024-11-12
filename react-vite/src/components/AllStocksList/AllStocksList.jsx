@@ -1,18 +1,78 @@
 import { useState, useEffect } from 'react'
 import './AllStocksList.css'
-import { addToWatchlistThunk } from '../../redux/watchlist'
-import { useDispatch } from 'react-redux'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { addToWatchlistThunk, removeFromWatchlistThunk } from '../../redux/watchlist'
+import { useDispatch, useSelector } from 'react-redux'
+import { Navigate, useNavigate, useLocation } from 'react-router-dom'
+import { getAllStocksThunk, getAllSearchStocksThunk } from '../../redux/stocks'
 
 
-export default function AllStocksList({stocks, pageSize, heightPx}) {
+export default function AllStocksList({stocks, pageSize, heightPx, searchStr}) {
     const [currPage, setCurrPage] = useState(1)
+    const watchlistStocks = useSelector(state =>  state.watchlist)
+    const [stocksState, setStocksState] = useState(stocks)
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const location = useLocation();
+
+    const { from, searchInput } = location.state || { from: "unknown", searchInput: null };
 
     const redirectToStockPage = stockId => {
         navigate(`/stocks/${stockId}`)
+    }
+
+    useEffect(() => {
+        if(Object.keys(stocks).length){
+        //     const watchlistStockIds = []
+        //     for(let keys in watchlistStocks){
+        //         watchlistStockIds.push(watchlistStocks[keys].stock_id)
+        //     }
+        //     console.log("here")
+
+        //     for(let keys in stocks){
+        //         if(watchlistStockIds.includes(stocks[keys].id)){
+        //             stocks[keys].is_in_watchlist = true
+
+        //         }
+        //         else{
+        //             console.log(stocks[keys])
+        //             stocks[keys].is_in_watchlist = false
+
+        //         }
+        //     }
+
+        // }
+        if(searchInput){
+            console.log(searchInput)
+            dispatch(getAllSearchStocksThunk(searchInput))
+        }
+        else{
+            dispatch(getAllStocksThunk())
+        }
+        }
+
+    }, [watchlistStocks])
+
+
+    const handleWatchlistButton = (e, associatedStock) => {
+        e.stopPropagation()
+        if(e.target.innerHTML == '+'){
+            dispatch(addToWatchlistThunk(associatedStock.id))
+            // e.target.innerHTML = "-"
+            associatedStock.is_in_watchlist = true
+        }
+        else{
+            const targetWatchlistStock = Object.values(watchlistStocks).find((stock) => {
+                if(stock.stock_id == associatedStock.id){
+                    return true
+                }
+            })
+            dispatch(removeFromWatchlistThunk(targetWatchlistStock.id))
+            associatedStock.is_in_watchlist = false
+            // e.target.innerHTML = "+"
+
+        }
+        // dispatch(addToWatchlistThunk(arrStocks[i].id))
     }
 
 
@@ -32,10 +92,9 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
                     <div className="company-name-list-item-home"><p>{arrStocks[i].company_name.length > 24 ? arrStocks[i].company_name.substring(0, 23) + "...": arrStocks[i].company_name}</p></div>
                     <div className="ticker-list-item-home"><p>{arrStocks[i].ticker}</p></div>
                     <div className="updated-price-list-item-home"><p>${arrStocks[i].updated_price}</p></div>
-                    <div className="button-list-item-home"><button  className="add-to-watchlist-home-button"onClick={(e) => {
-                        e.stopPropagation()
-                        dispatch(addToWatchlistThunk(arrStocks[i].id))
-                        }}>{arrStocks[i].is_in_watchlist ? "-" : "+"}</button></div>
+                    <div className="button-list-item-home"><button  
+                    className="add-to-watchlist-home-button"
+                    onClick={e => handleWatchlistButton(e, arrStocks[i])}>{arrStocks[i].is_in_watchlist ? "-" : "+"}</button></div>
                 </div>
             ))
         }
