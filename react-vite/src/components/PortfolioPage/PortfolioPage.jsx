@@ -1,4 +1,4 @@
-import './PortfolioPage.css'
+import '../PortfolioStocksList/PortfolioStocksList.css'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserInfoThunk, updateUserBalanceThunk } from '../../redux/users.js';
@@ -91,7 +91,6 @@ function PortfolioPage(){
                     <input type='number' step="0.01" min="0" placeholder="Enter amount here..." onChange={(e) => setFund(parseFloat(e.target.value))}></input>
                     <button className='add-fund-button'>Add Fund</button>
                 </form>
-                
                 <button className='liquidate-portfolio-button' onClick={handleClick}>Liquidate Portfolio</button>
             </div>
             <div className="portfolio-stocks-container">
