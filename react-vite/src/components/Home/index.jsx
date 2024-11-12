@@ -7,7 +7,7 @@ import AllStocksList from '../AllStocksList';
 import WatchlistStocksList from '../WatchlistStocksList';
 import "./indexHome.css"
 
-import { getAllWatchlistThunk, addToWatchlistThunk, removeFromWatchlistThunk } from '../../redux/watchlist';
+import { getAllWatchlistThunk } from '../../redux/watchlist';
 
 export default function Home() {
     // const data = useLoaderData();
