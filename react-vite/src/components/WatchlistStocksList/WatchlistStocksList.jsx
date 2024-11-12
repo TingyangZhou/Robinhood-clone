@@ -11,7 +11,7 @@ export default function WatchlistStocksList() {
     const stocks = useSelector(state => state.watchlist)
 
     const redirectToStockPage = stockId => {
-        navigate(`stocks/${stockId}`)
+        navigate(`/stocks/${stockId}`)
     }
 
     const stocksFormatter = () => {

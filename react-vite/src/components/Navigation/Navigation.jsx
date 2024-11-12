@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getAllSearchStocksThunk, getAllStocksThunk } from "../../redux/stocks";
 import { useDispatch } from "react-redux";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import ProfileButton from "./ProfileButton.jsx"
 
 
@@ -15,17 +15,17 @@ function Navigation() {
   const sessionUser = useSelector((state) => state.session.user);
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  // const location = useLocation()
+  const location = useLocation()
 
 
   const [searchInput, setSearchInput] = useState("");
 
 
-  // useEffect(() => {
-  //   setSearchInput("")
-
-
-  // }, [location])
+  useEffect(() => {
+    if(location.pathname != "/search" && location.pathname != "/"){
+      setSearchInput("")
+    }
+  }, [location])
 
 
 
@@ -33,14 +33,15 @@ function Navigation() {
 
 
   const handleSearch = async () => {
-    navigate("")
+
     if(searchInput == ""){
-      dispatch(getAllStocksThunk())
+       await dispatch(getAllStocksThunk())
     }
     else{
-      dispatch(getAllSearchStocksThunk(searchInput))
+      await dispatch(getAllSearchStocksThunk(searchInput))
     }
     console.log("Search submitted:", searchInput);
+    navigate("/search")
   };
 
 

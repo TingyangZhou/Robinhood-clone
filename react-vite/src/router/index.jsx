@@ -5,6 +5,7 @@ import Layout from './Layout';
 import Home from '../components/Home';
 import PortfolioPage from '../components/PortfolioPage/PortfolioPage';
 import StockDetailsPage from '../components/StockDetailsPage/StockDetailsPage';
+import SearchHome from '../components/SearchHome';
 // import Profile from '../components/Profile';
 // import GenericError from '../components/Error';
 // import * as api from './api';
@@ -34,6 +35,10 @@ export const router = createBrowserRouter([
             {
                 path: '/stocks/:stockId',
                 element: <StockDetailsPage />
+            },
+            {
+                path: '/search',
+                element: <SearchHome />,
             }
             // {
             //     path: 'profile/:userId',
