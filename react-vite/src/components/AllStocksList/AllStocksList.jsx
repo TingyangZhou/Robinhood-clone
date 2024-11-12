@@ -19,15 +19,20 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
    
     const stocksFormatter = stocks => {
         const startingPoint = (currPage - 1) * pageSize
-        const finalHTMLItems = []
+        const finalHTMLItems = [(<div key="home-column-identifier" className="stock-list-item-home">
+            <div className="company-name-list-item-home"><p>Company Name</p></div>
+                    <div className="ticker-list-item-home"><p>Symbol</p></div>
+                    <div className="updated-price-list-item-home"><p>Market Price</p></div>
+                    <div className="button-list-item-home">Add to watchlist</div>
+        </div>)]
         const arrStocks = Object.values(stocks)
         for(let i = startingPoint; i < startingPoint + pageSize && i < Object.keys(stocks).length ; i++){
             finalHTMLItems.push((
-                <div onClick={() => redirectToStockPage(arrStocks[i].id)}key={i} className="stock-list-item">
-                    <div className="company-name-list-item"><p>{arrStocks[i].company_name.length > 24 ? arrStocks[i].company_name.substring(0, 23) + "...": arrStocks[i].company_name}</p></div>
-                    <div className="ticker-list-item"><p>{arrStocks[i].ticker}</p></div>
-                    <div className="updated-price-list-item"><p>${arrStocks[i].updated_price}</p></div>
-                    <div className="button-list-item"><button onClick={(e) => {
+                <div onClick={() => redirectToStockPage(arrStocks[i].id)}key={i} className="stock-list-item-home">
+                    <div className="company-name-list-item-home"><p>{arrStocks[i].company_name.length > 24 ? arrStocks[i].company_name.substring(0, 23) + "...": arrStocks[i].company_name}</p></div>
+                    <div className="ticker-list-item-home"><p>{arrStocks[i].ticker}</p></div>
+                    <div className="updated-price-list-item-home"><p>${arrStocks[i].updated_price}</p></div>
+                    <div className="button-list-item-home"><button  className="add-to-watchlist-home-button"onClick={(e) => {
                         e.stopPropagation()
                         dispatch(addToWatchlistThunk(arrStocks[i].id))
                         }}>{arrStocks[i].is_in_watchlist ? "-" : "+"}</button></div>
@@ -57,21 +62,21 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
 
     if(Object.keys(stocks).length == 0){
         return (
-        <section className="stocks-all-list-container">
+        <section className="stocks-all-list-container-home">
             <h2>Stocks</h2>
-            <div className='stocks-all-list'style={{ height: `${heightPx}px`}}>
-                <h2 className="none-found-text">No matches found...</h2>
+            <div className='stocks-all-list-home'style={{ height: `${heightPx}px`}}>
+                <h2 className="none-found-text-home">No matches found...</h2>
             </div>
         </section>)
     }
     
     return (
-        <section className="stocks-all-list-container">
-            <h2>Stocks</h2>
-            <div className='stocks-all-list'style={{ height: `${heightPx}px`}}>
+        <section className="stocks-all-list-container-home">
+            <h2>Explore Stocks</h2>
+            <div className='stocks-all-list-home'style={{ height: `${heightPx}px`}}>
                 {stocksFormatter(stocks)}
                 </div>
-            <footer className="pagination-footer"><p>Page {currPage}</p><div className="pagination-footer-items-container">{paginationFooterFormatter(stocks)}</div></footer>
+            <footer className="pagination-footer-home"><p>Page {currPage}</p><div className="pagination-footer-items-container-home">{paginationFooterFormatter(stocks)}</div></footer>
         </section>
     )
 }

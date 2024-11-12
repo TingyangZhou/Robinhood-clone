@@ -25,6 +25,7 @@ function Navigation() {
     if(location.pathname != "/search" && location.pathname != "/"){
       setSearchInput("")
     }
+    
   }, [location])
 
 

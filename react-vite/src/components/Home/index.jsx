@@ -50,7 +50,7 @@ export default function Home() {
 
     return (
         <main>
-            <AllStocksList stocks={allStocks} pageSize={12} heightPx={675}/>
+            <AllStocksList stocks={allStocks} pageSize={11} heightPx={675}/>
             <WatchlistStocksList/>
         </main>
     );

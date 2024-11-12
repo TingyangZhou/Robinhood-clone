@@ -1,16 +1,16 @@
-.stocks-all-list {
+.stocks-all-list-home {
   width: 800px;
-  border: 1px solid #cecece;
+  border-bottom: 1px solid #cecece;
   padding: 10px;
-  background-color: #f9f9f9;
+  /* background-color: #f9f9f9; */
 }
 
 
-.none-found-text {
+.none-found-text-home {
   font-size: 50px;
 }
 
-.stock-list-item {
+.stock-list-item-home {
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -23,52 +23,61 @@
 }
 
 
-.stock-list-item div {
+.stock-list-item-home div {
   display: flex;
-  justify-content: flex-start;
+  align-items: center;
 }
 
 
-.company-name-list-item {
+.company-name-list-item-home {
   width: 32%
 }
 
 
-.ticker-list-item {
+.ticker-list-item-home {
   width: 10%
 }
 
 
-.updated-price-list-item {
-  width: 10%
+.updated-price-list-item-home {
+  width: 12%
 }
 
-.button-list-item {
-  width: 5%;
+.button-list-item-home {
+  width: 15%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.pagination-footer{
+.pagination-footer-home {
   display: flex;
   justify-content: space-between;
 }
 
 
-.pagination-footer-items-container{
+.pagination-footer-items-container-home {
   display: flex;
   justify-content: space-between;
   width: 100px;
 }
 
 
-.pagination-footer-items-container p:hover{
+.pagination-footer-items-container-home p:hover{
   cursor: pointer;
-
-
 }
 
-.current-page-link {
+.current-page-link-home {
   color: red
+}
+
+.add-to-watchlist-home-button {
+  justify-self: center;
+  background-color: white;
+  font-size: 20px;
+}
+
+.add-to-watchlist-home-button:hover {
+  color: #fb641c;
+  cursor: pointer;
 }

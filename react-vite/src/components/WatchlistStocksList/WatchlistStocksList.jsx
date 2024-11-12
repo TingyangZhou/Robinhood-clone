@@ -27,7 +27,7 @@ export default function WatchlistStocksList() {
                 <div onClick={() => redirectToStockPage(stocks[key].stock_id)}key={key}className="watchlist-item">
                     <div className="watchlist-item-ticker"><p>{stocks[key].ticker}</p></div>
                     <div className="watchlist-item-updated-price"><p>${stocks[key].updated_price}</p></div>
-                    <div className="watchlist-item-button"><button onClick={(e) => {
+                    <div className="watchlist-item-button"><button className="watchlist-item-button-inner"onClick={(e) => {
                         e.stopPropagation()
                         dispatch(removeFromWatchlistThunk(stocks[key].id))
                         }}>-</button></div>

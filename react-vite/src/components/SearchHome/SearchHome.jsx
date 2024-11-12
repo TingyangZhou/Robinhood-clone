@@ -30,7 +30,7 @@ export default function SearchHome() {
 
     return (
         <main>
-            <AllStocksList stocks={allStocks} pageSize={12} heightPx={675}/>
+            <AllStocksList stocks={allStocks} pageSize={11} heightPx={675}/>
             <WatchlistStocksList/>
         </main>
     );
