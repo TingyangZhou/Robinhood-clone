@@ -3,6 +3,15 @@
     font-weight: normal;
 }
 
+/* for profile button drop down menu*/
+.dark-mode .profile-list-item-with-icon *{
+    background-color: #121212;
+}
+.dark-mode .profile-list-item-with-icon button:hover{
+    background-color: #121212;
+    color:#fb641c
+}
+
 .profile-button{
     border: 1px rgb(126, 126, 126) solid;
     background-color: rgba(255, 255, 255, 0.955);

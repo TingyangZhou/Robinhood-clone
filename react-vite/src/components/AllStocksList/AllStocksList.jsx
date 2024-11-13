@@ -56,7 +56,7 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
             <div className="company-name-list-item-home"><p>Company Name</p></div>
                     <div className="ticker-list-item-home"><p>Symbol</p></div>
                     <div className="updated-price-list-item-home"><p>Market Price</p></div>
-                    <div className="button-list-item-home">Add to watchlist</div>
+                    <div className="button-list-item-home"><p>Add to watchlist</p></div>
         </div>)]
         const arrStocks = Object.values(stocks)
         for(let i = startingPoint; i < startingPoint + pageSize && i < Object.keys(stocks).length ; i++){
