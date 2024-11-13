@@ -110,6 +110,7 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
                 </div>
             <footer className="pagination-footer-home"><p>Page {currPage}</p><div className="pagination-footer-items-container-home">{paginationFooterFormatter(stocks)}</div></footer>
         </section>
+        
     )
 }
 
