@@ -75,6 +75,8 @@
 
 }
 
+
+
 .current-page-link-home {
   color: #fb641c
 }
@@ -83,9 +85,20 @@
   justify-self: center;
   background-color: white;
   font-size: 20px;
+  border-radius: 5px;;
 }
 
 .add-to-watchlist-home-button:hover {
   color: #fb641c;
   cursor: pointer;
 }
+
+.dark-mode .button-list-item-home button{
+  color: #fb641c;
+  background-color: #121212;;
+}
+
+.dark-mode .current-page-link-home {
+  color: #fb641c
+}
+
