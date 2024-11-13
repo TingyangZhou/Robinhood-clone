@@ -86,7 +86,7 @@ export const updateUserStockThunk = (stockId, stockData) => async (dispatch) => 
         body: JSON.stringify(stockData)
     });
     const data = await response.json();
-    dispatch(updateUserStockAction(data.stock));
+    dispatch(updateUserStockAction(data));
     return data;
 };
 
