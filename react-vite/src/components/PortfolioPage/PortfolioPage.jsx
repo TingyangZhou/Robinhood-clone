@@ -6,14 +6,20 @@ import { getUserStocksThunk, removeAllUserStocksThunk } from '../../redux/portfo
 import ConfirmDeleteModal from './DeleteConfirmation.jsx'
 import { useModal } from '../../context/Modal';
 import PortfolioStocksList from '../PortfolioStocksList';
+import { Navigate } from 'react-router-dom';
 
 function PortfolioPage(){
     const dispatch = useDispatch()
     const [fund ,setFund] = useState(0)
     // const [errors, setErrors] =useState({})
     const { setModalContent, closeModal } = useModal();
+    const sessionUser = useSelector((state) => state.session.user);
     const userInfo = useSelector((users) =>users.userInfo.userInfo)
     const userStocks = useSelector((portfolio)=>portfolio.portfolio.userStocks)
+
+    if (!sessionUser) {
+        return <Navigate to='/login'></Navigate>
+    }
     
 
     useEffect(()=>{

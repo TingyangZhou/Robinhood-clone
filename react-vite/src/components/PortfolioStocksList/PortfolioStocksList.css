@@ -94,17 +94,17 @@ a {
 }
 
 .pagination-footer-items-container p:hover {
-  color: #b83a00; 
+  color: #fb641c; 
 }
 
 .current-page-link {
-  color: #fb641c; 
+  color: #b83a00; 
   font-weight: bold;
 }
 
 /* Buttons */
 .add-fund-button, .liquidate-portfolio-button {
-  background-color: #fb641c; 
+  background-color: #b83a00; 
   color: #fff;
   border: none;
   padding: 0.625rem 1.25rem;
@@ -117,7 +117,7 @@ a {
 }
 
 .add-fund-button:hover, .liquidate-portfolio-button:hover {
-  background-color: #b83a00; 
+  background-color: #fb641c; 
 }
 
 .liquidate-portfolio-button {
