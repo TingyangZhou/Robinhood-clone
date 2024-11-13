@@ -11,12 +11,13 @@ import { FaBriefcase } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
 import { BsLightbulbFill } from "react-icons/bs";
 
-import { toggleTheme } from '../../themeUtils';
-
+// import { toggleTheme } from '../../themeUtils';
+import { useTheme } from '../../context/ThemeContext';
 
 function ProfileButton() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { isDarkMode, toggleTheme } = useTheme();
   const [showMenu, setShowMenu] = useState(false);
   const user = useSelector((store) => store.session.user);
   const ulRef = useRef();
@@ -82,7 +83,7 @@ function ProfileButton() {
               </li>
               <li className='profile-list-item-with-icon'>
                 <BsLightbulbFill />
-                <button className='profile-mode-button' id="change-mode-button" onClick={handleModeChange}>Switch Theme</button>
+                <button className='profile-mode-button' id="change-mode-button" onClick={handleModeChange}>{isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}</button>
               </li>
               <li className='profile-list-item-with-icon'>
                 <MdOutlineLogout />

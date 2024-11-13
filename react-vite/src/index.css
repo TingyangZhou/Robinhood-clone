@@ -1,6 +1,6 @@
 /* Dark mode styles */
 .dark-mode body {
-    background-color: #121212;
+    background-color: black;
     color: #ffffff;
 }
 
@@ -15,7 +15,7 @@
 }
 
 .dark-mode div{
-    background-color: #121212;
+    background-color: black;
 }
 
 .dark-mode .signup-section, .login-section{
@@ -23,7 +23,7 @@
 }
 
 .dark-mode div:hover{
-    background-color: #121212;
+    background-color: black;
 }
 
 .dark-mode p{
@@ -31,13 +31,13 @@
 }
 
 .dark-mode input{
-    background-color: #121212;
+    background-color: black;
     color:#ffffff
 }
 
 .dark-mode .signup-section input, .login-section input{
     background-color: #ffffff;
-    color:#121212
+    color:black
 }
 
 
