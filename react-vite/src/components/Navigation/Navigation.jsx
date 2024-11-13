@@ -21,12 +21,11 @@ function Navigation() {
 
   const [searchInput, setSearchInput] = useState("");
 
-
+  //reset search bar when navigating away from home
   useEffect(() => {
     if(location.pathname != "/search" && location.pathname != "/"){
       setSearchInput("")
     }
-    
   }, [location])
 
 
@@ -41,12 +40,9 @@ function Navigation() {
        console.log("navigating home")
        return
     }
-    else{
-      console.log("dispatching get search stocks")
-      await dispatch(getAllSearchStocksThunk(searchInput))
-    }
     console.log("Search submitted:", searchInput);
     navigate("/search", { state: { from: "/search", searchInput: searchInput } })
+    
   };
 
 

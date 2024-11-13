@@ -14,24 +14,22 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
 
     const location = useLocation();
 
-    const { searchInput } = location.state || { from: "unknown", searchInput: null };
+    const { searchInput } = location.state || { from: "unknown", searchInput: "" };
 
     const redirectToStockPage = stockId => {
         navigate(`/stocks/${stockId}`)
     }
 
     useEffect(() => {
-        if(Object.keys(stocks).length){
-            if(searchInput){
-                console.log(searchInput)
-                dispatch(getAllSearchStocksThunk(searchInput))
-            }
-            else{
-                dispatch(getAllStocksThunk())
-            }
+        if(location.pathname == "/search"){
+            console.log("dispatching search stocks in allstockslist component")
+            dispatch(getAllSearchStocksThunk(searchInput))
+        }
+        else{
+             dispatch(getAllStocksThunk())
         }
 
-    }, [watchlistStocks, searchInput, dispatch])
+    }, [watchlistStocks, searchInput, dispatch, location])
 
 
     const handleWatchlistButton = (e, associatedStock) => {

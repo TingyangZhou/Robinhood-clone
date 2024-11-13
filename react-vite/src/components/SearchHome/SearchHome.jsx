@@ -23,13 +23,13 @@ export default function SearchHome() {
     // const { from, searchInput } = location.state || { from: "unknown", searchInput: null };
 
 
-    useEffect(() => {
-        dispatch(getAllWatchlistThunk())
-        if(!Object.keys(allStocks).length){
-            navigate("/")
-        }
+    // useEffect(() => {
+    //     dispatch(getAllWatchlistThunk())
+    //     if(!Object.keys(allStocks).length){
+    //         navigate("/")
+    //     }
 
-    }, [dispatch, dispatch])
+    // }, [dispatch, dispatch])
 
     
 
