@@ -37,10 +37,12 @@ function Navigation() {
 
     if(searchInput == ""){
        navigate("/")
+       sessionStorage.removeItem("searchText")
        console.log("navigating home")
        return
     }
     console.log("Search submitted:", searchInput);
+    sessionStorage.setItem("searchText", searchInput)
     navigate("/search", { state: { from: "/search", searchInput: searchInput } })
     
   };
@@ -67,8 +69,10 @@ function Navigation() {
         <input
        type="text"
        placeholder="search for stocks..."
-       value={searchInput}
-       onChange={(e) => setSearchInput(e.target.value)}
+       value={ sessionStorage.getItem("searchText") ? sessionStorage.getItem("searchText") : searchInput}
+       onChange={(e) => {
+        sessionStorage.removeItem("searchText")
+        setSearchInput(e.target.value)}}
        onKeyDown={handleKeyDown}
        ></input></div>
       <div>

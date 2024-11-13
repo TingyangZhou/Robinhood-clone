@@ -1,27 +1,22 @@
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate} from 'react-router-dom';
 import { useSelector } from "react-redux";
-import { useDispatch } from 'react-redux';
-// import { getAllStocksThunk } from '../../redux/stocks';
-import { useEffect } from 'react';
+// import { useDispatch } from 'react-redux';
+// // import { getAllStocksThunk } from '../../redux/stocks';
+// import { useEffect } from 'react';
 import AllStocksList from '../AllStocksList';
 import WatchlistStocksList from '../WatchlistStocksList';
 
 
 
 // import { getAllWatchlistThunk, addToWatchlistThunk, removeFromWatchlistThunk } from '../../redux/watchlist';
-import { getAllWatchlistThunk} from '../../redux/watchlist';
+// import { getAllWatchlistThunk} from '../../redux/watchlist';
 
 export default function SearchHome() {
     // const data = useLoaderData();
-    const navigate = useNavigate()
-    const dispatch = useDispatch()
+    // const navigate = useNavigate()
+    // const dispatch = useDispatch()
     const sessionUser = useSelector((state) => state.session.user);
     const allStocks = useSelector((state) => state.stocks.stocks);
-
-    // const location = useLocation();
-
-    // const { from, searchInput } = location.state || { from: "unknown", searchInput: null };
-
 
     // useEffect(() => {
     //     dispatch(getAllWatchlistThunk())
