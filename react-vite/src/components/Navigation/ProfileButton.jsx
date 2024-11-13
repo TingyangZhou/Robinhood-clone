@@ -6,6 +6,9 @@ import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useNavigate } from "react-router-dom";
+import "./ProfileButton.css";
+import { FaBriefcase } from "react-icons/fa";
+import { MdOutlineLogout } from "react-icons/md";
 
 
 function ProfileButton() {
@@ -59,19 +62,23 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button className='profile-button' onClick={toggleMenu}>
         <FaUserCircle />
       </button>
       {showMenu && (
         <div className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
-              {/* <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li> */}
-              <button onClick={handlePortfolioClick}>My Portfolio</button>
-              <button onClick={logout}>Log Out</button>
-              {/* </li> */}
+              <li className='profile-username'>{user.username}</li>
+              <li className='profile-list-item-with-icon'>
+                <FaBriefcase />
+                <button className='profile-my-portfolio' onClick={handlePortfolioClick}>My Portfolio</button>
+              </li>
+              <li className='profile-list-item-with-icon'>
+                <MdOutlineLogout />
+                <button className='profile-log-out' onClick={logout}>Log Out</button>
+              </li>
+              
             </>
           ) : (
             <>
