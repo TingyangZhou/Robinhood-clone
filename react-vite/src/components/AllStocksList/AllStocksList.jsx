@@ -31,7 +31,7 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
             }
         }
 
-    }, [watchlistStocks,dispatch, searchInput,stocks])
+    }, [watchlistStocks])
 
 
     const handleWatchlistButton = (e, associatedStock) => {

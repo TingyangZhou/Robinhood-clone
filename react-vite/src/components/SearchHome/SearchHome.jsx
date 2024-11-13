@@ -25,9 +25,9 @@ export default function SearchHome() {
 
     useEffect(() => {
         dispatch(getAllWatchlistThunk())
-        // if(!Object.keys(allStocks).length){
-        //     navigate("/")
-        // }
+        if(!Object.keys(allStocks).length){
+            navigate("/")
+        }
 
     }, [dispatch])
 
