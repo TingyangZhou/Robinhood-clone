@@ -24,6 +24,7 @@ function Navigation() {
   //reset search bar when navigating away from home
   useEffect(() => {
     if(location.pathname != "/search" && location.pathname != "/"){
+      sessionStorage.removeItem("searchText")
       setSearchInput("")
     }
   }, [location])
