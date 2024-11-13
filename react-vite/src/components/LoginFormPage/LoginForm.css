@@ -5,6 +5,25 @@ body, html {
     height: 100%;
     font-family: Arial, sans-serif;
   }
+
+  
+
+.login-button:hover {
+    background-color: #b83a00;
+}
+
+ .login-button {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  background-color: #fb641c;
+  color: white;
+  margin: 10px 0;
+  /* transition: background-color 0.3s ease; */
+}
   
   .login-page {
     background-image: url('../../../public/images/background.jpg'); 
@@ -15,7 +34,7 @@ body, html {
     justify-content: flex-end; 
     align-items: center;
     min-height: 100vh;
-    padding-right: 150px; /* Optional spacing from the right edge */
+    padding-right: 200px;
     
   }
 
@@ -28,7 +47,7 @@ body, html {
   
   .login-form {
     width: 300px;
-    padding: 30px;
+    padding: 0px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     display: flex;
@@ -65,7 +84,7 @@ body, html {
 
   
   .SignUpLink {
-    margin-top: 5px;
+    margin-top: 0px;
     font-size: 14px;
     color: white;
     text-decoration: none;
