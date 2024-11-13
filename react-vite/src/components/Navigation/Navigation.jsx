@@ -1,8 +1,8 @@
 import "./Navigation.css";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllSearchStocksThunk} from "../../redux/stocks";
-import { useDispatch } from "react-redux";
+// import { getAllSearchStocksThunk} from "../../redux/stocks";
+// import { useDispatch } from "react-redux";
 import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import ProfileButton from "./ProfileButton.jsx"
 import { FaFeather, FaSearch } from "react-icons/fa"
@@ -15,7 +15,6 @@ import { FaFeather, FaSearch } from "react-icons/fa"
 function Navigation() {
   const sessionUser = useSelector((state) => state.session.user);
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const location = useLocation()
 
 
