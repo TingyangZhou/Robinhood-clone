@@ -76,12 +76,7 @@ const StockDetailsPage = () => {
         setSharesOrder(0);
         setEstimatedCost(0);
         setSharesOwned(shares);
-
     };
-
-    // const watchlistRefreshHandler = (bool) => {
-    //     setToggleWatchlist(bool);
-    // }
 
     const shareHandler = (event) => {
         const shareValue = event.target.value;
@@ -91,19 +86,30 @@ const StockDetailsPage = () => {
 
     const estimatedCostHandler = (shares) => {
         const value1 = marketPrice * shares;
-        const value2 = value1.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2 
-        });
-        setEstimatedCost(value2);
+        // const value2 = value1.toLocaleString('en-US', {
+        //     minimumFractionDigits: 2,
+        //     maximumFractionDigits: 2 
+        // });
+        setEstimatedCost(value1);
     };
 
     const buyButtonHandler = async () => {
         const totalShares = sharesOwned + sharesPurchasedVal;
 
         const totalInvestedOwned =  sharesOwned * averageUserStockValue;
+        // console.log('Test 1:', totalInvestedOwned, typeof totalInvestedOwned);
+
+        // const formatestimatedCost = parseFloat(estimatedCost);
+        console.log('Test 2.2:', estimatedCost, typeof estimatedCost)
+
         const totalInvestedPurchased = sharesPurchasedVal * estimatedCost;
+        // console.log('Test 2:', totalInvestedPurchased, typeof totalInvestedPurchased);
+        // console.log('Test 2.1:', sharesPurchasedVal, typeof sharesPurchasedVal);
+        // console.log('Test 2.2:', formatestimatedCost, typeof formatestimatedCost);
+
+        // issue is here
         const totalInvested = totalInvestedOwned + totalInvestedPurchased;
+
         const totalPricePerShare = parseFloat((totalInvested / totalShares).toFixed(2));
 
         console.log('Test 3:', totalPricePerShare, typeof totalPricePerShare);
@@ -126,18 +132,25 @@ const StockDetailsPage = () => {
                 'num_shares': totalShares
             }            
 
-            console.log('Data 0:', totalShares, stockId, estimatedCost);
+            console.log('Tracer 1.1:', totalShares, stockId, estimatedCost);
 
             if (sharesOwned === 0) {
                 await dispatch(addUserStockThunk(stockId, updateStock));
             }
 
             if (sharesOwned > 0) {
+                console.log('Tracer 1.2:');
                 await dispatch(updateUserStockThunk(stockId, updateStock));
+                console.log('Tracer 1.3:');
             }
 
-            const new_balance = parseFloat((- estimatedCost).toFixed(2));
+            console.log('Tracer 1.4:', estimatedCost, typeof estimatedCost);
+            console.log('Tracer 1.4.1:', estimatedCost.toLocaleString(), typeof estimatedCost.toLocaleString());
+            const new_balance = parseFloat(-(estimatedCost).toFixed(2));
+            console.log('Tracer 1.5:', new_balance);
+
             await dispatch(updateUserBalanceThunk(new_balance));
+            console.log('Tracer 1.6:');
            
             refreshHandler(totalShares);
         }
@@ -156,8 +169,6 @@ const StockDetailsPage = () => {
             console.log('Data 1:', totalShares, stockId, );
             
             if (totalShares === 0) {
-                // await dispatch(updateUserStockThunk(stockId, updateStock));
-                // console.log('Data 1:', totalShares );
                 await dispatch(removeUserStockThunk(parseInt(stockId, 10)));
             }
 
@@ -173,79 +184,13 @@ const StockDetailsPage = () => {
     };
 
     const addWatchlistHandler = async () => {    
-        // console.log('Data 1:', stock.Is_in_watchlist);
-        const var2 = stock.Is_in_watchlist;
-
-        // if (var2) {
-        //     console.log('Log 1:', var2);
-        //     await removeFromWatchlistThunk(stockId);            
-        // }
-
-        // if (!var2) {
-        //     console.log('Log 2:', var2);     
-        //     await addToWatchlistThunk(stockId);      
-        // }
-
-        console.log('Log 1:', var2);
+        console.log('Log 1:', stock.Is_in_watchlist);
         await dispatch(addToWatchlistThunk(stockId));
-
-        // stock.Is_in_watchlist = !var2;
-
-        // var2 = !var2
-
-        // watchlistRefreshHandler(!var2);
-
-        // if (sharesOwned > 0 && sharesOwned >= sharesPurchasedVal) {
-        //     alert(`Sold ${sharesPurchasedVal} shares of ${stock.ticker} for $${estimatedCost}`);
-
-        //     const totalShares = sharesOwned - sharesPurchasedVal;
-
-        //     const updateStock = {
-        //         'num_shares': totalShares
-        //     } 
-
-        //     console.log('Data 1:', totalShares, stockId, );
-            
-        //     if (totalShares === 0) {
-        //         // await dispatch(updateUserStockThunk(stockId, updateStock));
-        //         // console.log('Data 1:', totalShares );
-        //         await dispatch(removeUserStockThunk(parseInt(stockId, 10)));
-        //     }
-
-        //     if (totalShares > 0) {
-        //         await dispatch(updateUserStockThunk(stockId, updateStock));
-        //     }
-            
-        //     const new_balance = parseFloat((parseFloat(estimatedCost)).toFixed(2));
-        //     await dispatch(updateUserBalanceThunk(new_balance));
-
-        //     refreshHandler(totalShares);
-        // }
     };
 
     const removeWatchlistHandler = async () => {    
-        // console.log('Data 1:', stock.Is_in_watchlist);
-        const var2 = stock.Is_in_watchlist;
-
-        // if (var2) {
-        //     console.log('Log 1:', var2);
-        //     await removeFromWatchlistThunk(stockId);            
-        // }
-
-        // if (!var2) {
-        //     console.log('Log 2:', var2);     
-        //     await addToWatchlistThunk(stockId);      
-        // }
-
-        console.log('Log 2:', var2);
+        console.log('Log 2:', stock.Is_in_watchlist);
         await dispatch(removeFromWatchlistThunk(getWatchlistId()));
-
-        // stock.Is_in_watchlist = !var2;
-
-        // var2 = !var2
-
-        // watchlistRefreshHandler(!var2);
-
     };
 
     const buyingPowerHandler = () => {
@@ -287,7 +232,13 @@ const StockDetailsPage = () => {
 
                 <div className='order-menu'>
                     <div>Estimated Cost/Credit</div>
-                    <div>${estimatedCost}</div>
+                    <div>${
+                            estimatedCost.toLocaleString('en-US', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2 
+                                })
+                            }
+                    </div>
                 </div>
                 
                 <div>
@@ -313,9 +264,6 @@ const StockDetailsPage = () => {
                 <div>{sharesOwned} Shares Available</div>
                 
                 <div>
-                    {/* {stock.Is_in_watchlist ? ()} */}
-                    {/* {stock.Is_in_watchlist ? ('+ Add to Watchlist') : ('- Remove from Watchlist')} */}
-
                     {getWatchlistId() ? (
                         <button
                             onClick={removeWatchlistHandler}
@@ -329,16 +277,9 @@ const StockDetailsPage = () => {
                             + Add to Watchlist
                         </button>
                     )}
-
-                    {/* <button
-                        onClick={watchlistHandler}
-                    >
-                        {stock.Is_in_watchlist ? ('+ Add to Watchlist') : ('- Remove from Watchlist')}
-                    </button> */}
                 </div>
+                
             </div>
-
-            {/* <div>+ Add to Watchlist</div> */}
 
         </div>
     );
