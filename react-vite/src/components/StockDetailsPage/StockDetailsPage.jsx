@@ -210,14 +210,12 @@ const StockDetailsPage = () => {
         });
     }
 
-<<<<<<< HEAD
-=======
+
     // const isBuyButtonDisabled = cashBalance < marketPrice * sharesPurchasedVal || sharesPurchasedVal === 0;
     // const isSellButtonDisabled = sharesOrder > stock.user_shares || sharesOwned === 0 || sharesPurchasedVal === 0;
 
     
 
->>>>>>> graph
     return (
         <div className='stock-details-page-container'>
             {/* <h1>Stock Details Page</h1> */}
