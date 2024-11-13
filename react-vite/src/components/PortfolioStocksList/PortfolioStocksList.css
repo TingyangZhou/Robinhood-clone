@@ -1,6 +1,6 @@
-.port-page-container{
+/* .port-page-container{
   padding:0rem 5rem
-}
+} */
 
 
 /* Link Styling */
@@ -153,12 +153,13 @@ a {
 
 /* User Info Section */
 .user-info {
-  max-width: 50%;
-  margin: 1.25rem 0rem;
-  padding: 1.25rem 0.5rem;
+  max-width: 62.5rem;
+  margin: 1.25rem auto;
+  padding: 1.25rem;
   background-color: #ffffff;
-  border:1px #cecece solid;
-  border-radius: 5px;
+  /* border:1px #cecece solid;
+  border-radius: 5px; */
+ 
 }
 
 .user-info .username, .user-info .user-email {

@@ -6,6 +6,10 @@ import configureStore from "./redux/store";
 import { router } from "./router";
 import * as sessionActions from "./redux/session";
 import "./index.css";
+import { loadTheme } from './themeUtils';
+
+// Load the current theme before rendering the app
+loadTheme();
 
 const store = configureStore();
 

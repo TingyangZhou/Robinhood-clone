@@ -1,0 +1,48 @@
+/* Dark mode styles */
+.dark-mode body {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.dark-mode button {
+    background-color: #b83a00; /* Dimmed Orange */
+    color: #ffffff;
+}
+
+.dark-mode button:hover {
+    background-color:#fb641c ; /* Dimmed Orange */
+    color: #ffffff;
+}
+
+.dark-mode div{
+    background-color: #121212;
+}
+
+.dark-mode .signup-section, .login-section{
+    background-color: initial !important;
+}
+
+.dark-mode div:hover{
+    background-color: #121212;
+}
+
+.dark-mode p{
+    color: #ffffff; 
+}
+
+.dark-mode input{
+    background-color: #121212;
+    color:#ffffff
+}
+
+.dark-mode .signup-section input, .login-section input{
+    background-color: #ffffff;
+    color:#121212
+}
+
+
+
+.dark-mode h2{
+    color: #ffffff; 
+}
+

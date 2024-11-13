@@ -17,15 +17,15 @@ function PortfolioPage(){
     const userInfo = useSelector((users) =>users.userInfo.userInfo)
     const userStocks = useSelector((portfolio)=>portfolio.portfolio.userStocks)
 
-    if (!sessionUser) {
-        return <Navigate to='/login'></Navigate>
-    }
-    
 
     useEffect(()=>{
         dispatch(getUserInfoThunk());
         dispatch(getUserStocksThunk())
     },[dispatch])
+
+    if (!sessionUser) {
+        return <Navigate to='/login'></Navigate>
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();

@@ -9,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 import "./ProfileButton.css";
 import { FaBriefcase } from "react-icons/fa";
 import { MdOutlineLogout } from "react-icons/md";
+import { BsLightbulbFill } from "react-icons/bs";
+
+import { toggleTheme } from '../../themeUtils';
 
 
 function ProfileButton() {
@@ -59,6 +62,9 @@ function ProfileButton() {
     closeMenu()
   }
 
+  const handleModeChange = () => {
+    toggleTheme();
+  };
 
   return (
     <>
@@ -73,6 +79,10 @@ function ProfileButton() {
               <li className='profile-list-item-with-icon'>
                 <FaBriefcase />
                 <button className='profile-my-portfolio' onClick={handlePortfolioClick}>My Portfolio</button>
+              </li>
+              <li className='profile-list-item-with-icon'>
+                <BsLightbulbFill />
+                <button className='profile-mode-button' id="change-mode-button" onClick={handleModeChange}>Switch Theme</button>
               </li>
               <li className='profile-list-item-with-icon'>
                 <MdOutlineLogout />

@@ -18,6 +18,14 @@
   margin-left: 30px;
 }
 
+.dark-mode .robinhood-logo-home {
+  color:white;
+}
+
+.dark-mode .robinhood-logo-home:hover{
+  color:#fb641c;
+}
+
 .nav-bar-main {
   display: flex;
   justify-content: space-between;
