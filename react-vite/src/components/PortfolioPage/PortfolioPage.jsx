@@ -100,7 +100,7 @@ function PortfolioPage(){
                 <button className='liquidate-portfolio-button' onClick={handleClick}>Liquidate Portfolio</button>
             </div>
             <div className="portfolio-stocks-container">
-                {lengthOfStockList!==0 && <PortfolioStocksList stocks={userStocks} pageSize={10} heightPx={675}/>}
+                {lengthOfStockList!==0 && <PortfolioStocksList stocks={userStocks} pageSize={11} heightPx={675}/>}
             </div>
         </div> 
     )
