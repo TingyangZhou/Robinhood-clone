@@ -81,7 +81,7 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
         const numPages = Math.ceil(numStocks / pageSize)
         for(let i = 1; i <= numPages; i++){
             finalHTMLItems.push((
-                <p onClick={() => setCurrPage(i)}key={i}className={currPage == i ? "current-page-link": ""}>{i}</p>
+                <p onClick={() => setCurrPage(i)}key={i}className={currPage == i ? "current-page-link-home": ""}>{i}</p>
             ))
         }
         return finalHTMLItems

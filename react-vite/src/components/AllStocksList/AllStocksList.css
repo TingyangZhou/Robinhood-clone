@@ -58,7 +58,8 @@
 
 .pagination-footer-items-container-home {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: center;
   width: 100px;
 }
 
@@ -67,8 +68,15 @@
   cursor: pointer;
 }
 
+.pagination-footer-items-container-home p {
+  margin: 0 8px;
+  font-size: 17px;
+  font-weight: 700px;
+
+}
+
 .current-page-link-home {
-  color: red
+  color: #fb641c
 }
 
 .add-to-watchlist-home-button {
