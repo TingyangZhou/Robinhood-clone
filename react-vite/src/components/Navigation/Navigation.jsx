@@ -20,7 +20,7 @@ function Navigation() {
 
   //reset search bar when navigating away from home
   useEffect(() => {
-    if(location.pathname != "/search" && location.pathname != "/"){
+    if(location.pathname != "/search"){
       removeSearchState()
     }
   }, [location])
@@ -70,10 +70,10 @@ function Navigation() {
         <input
        type="text"
        placeholder="search for stocks..."
-       value={ sessionStorage.getItem("searchText") ? sessionStorage.getItem("searchText") : searchInput}
        onChange={(e) => {
-        sessionStorage.removeItem("searchText")
-        setSearchInput(e.target.value)}}
+        setSearchInput(e.target.value)
+        sessionStorage.removeItem("searchText")}}
+       value={ sessionStorage.getItem("searchText") ? sessionStorage.getItem("searchText") : searchInput}
        onKeyDown={handleKeyDown}
        ></input></div>
       <div>
