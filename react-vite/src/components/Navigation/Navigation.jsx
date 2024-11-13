@@ -5,7 +5,7 @@ import { getAllSearchStocksThunk, getAllStocksThunk } from "../../redux/stocks";
 import { useDispatch } from "react-redux";
 import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import ProfileButton from "./ProfileButton.jsx"
-import { FaFeather } from "react-icons/fa"
+import { FaFeather, FaSearch } from "react-icons/fa"
 
 
 
@@ -38,9 +38,11 @@ function Navigation() {
 
     if(searchInput == ""){
        navigate("/")
+       console.log("navigating home")
        return
     }
     else{
+      console.log("dispatching get search stocks")
       await dispatch(getAllSearchStocksThunk(searchInput))
     }
     console.log("Search submitted:", searchInput);
@@ -64,7 +66,9 @@ function Navigation() {
       <div className="logo-home-container">
         <NavLink to="/"><FaFeather className="robinhood-logo-home"/></NavLink>
       </div>
-      <div><input
+      <div className="search-bar-container">
+        <FaSearch />
+        <input
        type="text"
        placeholder="search for stocks..."
        value={searchInput}
