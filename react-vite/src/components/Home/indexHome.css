@@ -4,10 +4,7 @@ main {
     justify-content: space-between;
 }
 
-@media (max-width: 1200px) {
-    .watchlist-list-container {
-        display: none
-    }
+@media (max-width: 1400px) {
 
     .ticker-list-item-home,
     .ticker-list-item-home p{
@@ -21,7 +18,12 @@ main {
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
+
+    .watchlist-list {
+        width: 165px;
+    }
+
     .stocks-all-list-home {
         width: 500px;
         margin-left: 25px;
@@ -32,7 +34,8 @@ main {
     }
 }
 
-@media (max-width: 625px) {
+@media (max-width: 850px) {
+
     .updated-price-list-item-home,
     .updated-price-list-item-home p{
         display: none;
@@ -50,4 +53,11 @@ main {
     }
 
 }
+
+@media (max-width: 675px) {
+    .watchlist-list-container {
+        display: none
+    }
+}
+
 
