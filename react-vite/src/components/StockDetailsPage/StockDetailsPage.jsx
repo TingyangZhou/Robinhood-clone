@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { getOneStockThunk } from "../../redux/stocks";
 import { getUserInfoThunk, updateUserBalanceThunk } from '../../redux/users';
 import { getUserStocksThunk, addUserStockThunk, removeUserStockThunk, updateUserStockThunk } from '../../redux/portfolio';
+import { useTheme } from '../../context/ThemeContext';
 import './StockDetailsPage.css';
 
 const StockDetailsPage = () => {
@@ -20,6 +21,15 @@ const StockDetailsPage = () => {
     const [sharesOwned, setSharesOwned] = useState(0);
     const [estimatedCost, setEstimatedCost] = useState(0);
 
+    //!!! Stock chart code 1 starts here
+    const { isDarkMode } = useTheme();
+    const [imgPath, setImgPath] = useState('/images/dark-mode-graph.png');
+
+    useEffect(() => {
+        const path = isDarkMode ? '/images/dark-mode-graph.png' : '/images/light-mode-graph.png';
+        setImgPath(path);
+    }, [isDarkMode]);
+    
 
     // Dynamic States
     useEffect(() => {
@@ -156,6 +166,8 @@ const StockDetailsPage = () => {
     // const isBuyButtonDisabled = cashBalance < marketPrice * sharesPurchasedVal || sharesPurchasedVal === 0;
     // const isSellButtonDisabled = sharesOrder > stock.user_shares || sharesOwned === 0 || sharesPurchasedVal === 0;
 
+    
+
     return (
         <div className='stock-details-page-container'>
             {/* <h1>Stock Details Page</h1> */}
@@ -163,7 +175,7 @@ const StockDetailsPage = () => {
             <div className='left-menu'>                
                 <h3>{stock.company_name}</h3>
                 <div>${stock.updated_price}</div>
-                <div>Image url here:{stock.image_url}</div>
+                <div><img src={imgPath}></img></div>
                 <h3>About</h3>
                 <div>{stock.company_info}</div>
             </div>

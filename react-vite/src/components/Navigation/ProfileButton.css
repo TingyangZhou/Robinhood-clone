@@ -5,10 +5,10 @@
 
 /* for profile button drop down menu*/
 .dark-mode .profile-list-item-with-icon *{
-    background-color: #121212;
+    background-color: black;
 }
 .dark-mode .profile-list-item-with-icon button:hover{
-    background-color: #121212;
+    background-color: black;
     color:#fb641c
 }
 
@@ -30,6 +30,7 @@
     border: 1px  #cecece solid;
     border-radius: 5px;
     padding:0.5rem 1rem;
+    background-color: white;
 }
 
 .profile-dropdown > li {
