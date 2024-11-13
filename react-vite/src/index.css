@@ -18,6 +18,10 @@
     background-color: #121212;
 }
 
+.dark-mode .signup-section, .login-section{
+    background-color: initial !important;
+}
+
 .dark-mode div:hover{
     background-color: #121212;
 }
@@ -30,6 +34,13 @@
     background-color: #121212;
     color:#ffffff
 }
+
+.dark-mode .signup-section input, .login-section input{
+    background-color: #ffffff;
+    color:#121212
+}
+
+
 
 .dark-mode h2{
     color: #ffffff; 
