@@ -45,7 +45,7 @@ export const getAllStocksThunk = () => async (dispatch) => {
 export const getAllSearchStocksThunk = (input) => async (dispatch) => {
     const res = await fetch(`/api/stocks/search?input=${input}`);
     if (res.ok) {
-        const data = res;
+        const data = await res.json();
         dispatch(getAllStocks(data.search_results));
     } else {
         const errors = await res.json();

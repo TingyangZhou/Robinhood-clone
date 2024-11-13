@@ -1,8 +1,8 @@
 # app/api/search_routes.py
 
 from flask import Blueprint, jsonify, request
-from flask_login  import login_required
-from app.models import Stock
+from flask_login  import login_required, current_user
+from app.models import Stock, UserStock, WatchlistStock
 
 search_routes = Blueprint('search_routes', __name__)
 
@@ -26,7 +26,9 @@ def search_stocks():
             'ticker': stock.ticker,
             'company_name': stock.company_name,
             'image_url': stock.image_url,
-            'updated_price': stock.updated_price
+            'updated_price': stock.updated_price,
+            "is_in_watchlist": WatchlistStock.query.filter_by(user_id=current_user.id, stock_id=stock.id).first() is not None,
+            "is_in_portfolio": UserStock.query.filter_by(user_id=current_user.id, stock_id=stock.id).first() is not None
         })
         
     return jsonify({'search_results': search_list}), 200
