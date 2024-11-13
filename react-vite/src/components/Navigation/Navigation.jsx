@@ -24,11 +24,14 @@ function Navigation() {
   //reset search bar when navigating away from home
   useEffect(() => {
     if(location.pathname != "/search" && location.pathname != "/"){
-      sessionStorage.removeItem("searchText")
-      setSearchInput("")
+      removeSearchState()
     }
   }, [location])
 
+  const removeSearchState = () => {
+    sessionStorage.removeItem("searchText")
+    setSearchInput("")
+  }
 
 
 
@@ -63,7 +66,7 @@ function Navigation() {
   return (
     <header  className={navClassName}>
       <div className="logo-home-container">
-        <NavLink to="/"><FaFeather className="robinhood-logo-home"/></NavLink>
+        <NavLink  onClick={removeSearchState} to="/"><FaFeather className="robinhood-logo-home"/></NavLink>
       </div>
       <div className="search-bar-container">
         <FaSearch />
