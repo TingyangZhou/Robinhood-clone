@@ -79,7 +79,7 @@ export const removeUserStockThunk = (stockId) => async (dispatch) => {
 
 export const updateUserStockThunk = (stockId, stockData) => async (dispatch) => {
     const response = await fetch(`/api/portfolio/${stockId}/current`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
         },
