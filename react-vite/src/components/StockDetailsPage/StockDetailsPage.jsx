@@ -66,9 +66,9 @@ const StockDetailsPage = () => {
         }
     };
 
-    const sellButtonHandler = () => {
+    // const sellButtonHandler = () => {
 
-    };
+    // };
 
     const isDisabled = balance < currenPrice * shares || shares == 0; // NOTE: Keep button dimmed out in .css
 

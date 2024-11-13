@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './AllStocksList.css'
 import { addToWatchlistThunk, removeFromWatchlistThunk } from '../../redux/watchlist'
 import { useDispatch, useSelector } from 'react-redux'
-import { Navigate, useNavigate, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { getAllStocksThunk, getAllSearchStocksThunk } from '../../redux/stocks'
 
 
@@ -14,7 +14,7 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
 
     const location = useLocation();
 
-    const { from, searchInput } = location.state || { from: "unknown", searchInput: null };
+    const { searchInput } = location.state || { from: "unknown", searchInput: null };
 
     const redirectToStockPage = stockId => {
         navigate(`/stocks/${stockId}`)
@@ -31,7 +31,7 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
             }
         }
 
-    }, [watchlistStocks])
+    }, [watchlistStocks,dispatch, searchInput,stocks])
 
 
     const handleWatchlistButton = (e, associatedStock) => {
