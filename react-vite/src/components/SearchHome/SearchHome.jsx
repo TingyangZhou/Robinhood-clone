@@ -1,46 +1,37 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
-import { getAllStocksThunk } from '../../redux/stocks';
+// import { getAllStocksThunk } from '../../redux/stocks';
 import { useEffect } from 'react';
 import AllStocksList from '../AllStocksList';
 import WatchlistStocksList from '../WatchlistStocksList';
-import "./indexHome.css"
 
-import { getAllWatchlistThunk } from '../../redux/watchlist';
 
-export default function Home() {
+
+// import { getAllWatchlistThunk, addToWatchlistThunk, removeFromWatchlistThunk } from '../../redux/watchlist';
+import { getAllWatchlistThunk} from '../../redux/watchlist';
+
+export default function SearchHome() {
     // const data = useLoaderData();
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const sessionUser = useSelector((state) => state.session.user);
     const allStocks = useSelector((state) => state.stocks.stocks);
 
+    const location = useLocation();
 
-    // useEffect(() => {
-    //     dispatch(getAllStocksThunk())
-    // }, [dispatch])
-
-
+    const { from, searchInput } = location.state || { from: "unknown", searchInput: null };
 
 
     useEffect(() => {
         dispatch(getAllWatchlistThunk())
-        dispatch(getAllStocksThunk())
+        if(!Object.keys(allStocks).length){
+            navigate("/")
+        }
+
     }, [dispatch])
 
-
-    // useEffect(() => {
-    //     async function testDeleteToWatchlist() {
-    //         try {
-    //             const result = await dispatch(removeFromWatchlistThunk(9));
-    //         } catch (error) {
-    //             console.error("Error adding to watchlist:", error);
-    //         }
-    //     }
-    //     testDeleteToWatchlist();
-    // }, [dispatch]);
-
-
+    
 
 
     if (!sessionUser) {
@@ -55,4 +46,3 @@ export default function Home() {
         </main>
     );
 }
-

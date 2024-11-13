@@ -1,4 +1,4 @@
-import "./PortfolioPage.css"
+
 
 function deletePortfolioProcess(stockValue,onConfirm, onCancel){
     const formattedStockValue = stockValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });

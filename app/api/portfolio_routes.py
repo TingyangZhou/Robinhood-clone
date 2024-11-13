@@ -27,7 +27,8 @@ def get_current_user_portfolio():
                     "company_info": stock.company_info,
                     "share_price": stock.updated_price,  
                     "share_quantity": user_stock.share_quantity,
-                    "stock_id": stock.id
+                    "stock_id": stock.id,
+                    "updated_price": stock.updated_price
                 }
                 for user_stock, stock in current_user_stocks
             ]
