@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { getOneStockThunk } from "../../redux/stocks";
 import { getUserInfoThunk, updateUserBalanceThunk } from '../../redux/users';
 import { getUserStocksThunk, addUserStockThunk, removeUserStockThunk, updateUserStockThunk } from '../../redux/portfolio';
+import { getAllWatchlistThunk, addToWatchlistThunk, removeFromWatchlistThunk } from '../../redux/watchlist';
 import './StockDetailsPage.css';
 
 const StockDetailsPage = () => {
@@ -13,12 +14,26 @@ const StockDetailsPage = () => {
     const stock = useSelector(state => state.stocks.currentStock);
     const user = useSelector(state => state.userInfo.userInfo);
     const userStocks = useSelector(state => state.portfolio.userStocks);
+    const watchlist = useSelector(state => state.watchlist);
+    // console.log('Data 1:', watchlist.id);
+    
+    const getWatchlistId = () => {
+        for (let key in watchlist)  {
+            let currKey = watchlist[key];
+            if (currKey.stock_id === stock.id) {
+                return currKey.id;
+            }
+        }
+    };
+
+    // console.log('Data 1:', getWatchlistId());
 
     const { stockId } = useParams();
 
     const [sharesOrder, setSharesOrder] = useState(0);
     const [sharesOwned, setSharesOwned] = useState(0);
     const [estimatedCost, setEstimatedCost] = useState(0);
+    // const [toggleWatchlist, setToggleWatchlist] = useState('');
 
 
     // Dynamic States
@@ -26,6 +41,7 @@ const StockDetailsPage = () => {
         dispatch(getOneStockThunk(stockId));
         dispatch(getUserInfoThunk());
         dispatch(getUserStocksThunk());
+        dispatch(getAllWatchlistThunk());
     }, [dispatch, stockId]);
 
     useEffect(() => {
@@ -33,14 +49,18 @@ const StockDetailsPage = () => {
         setSharesOwned(calculatedShares);
     }, [userStocks, stockId]);
 
+    // useEffect(() => {
+    //     const blah = stock.Is_in_watchlist;
+    //     setToggleWatchlist(blah);
+    // }, [stock, stockId]);
 
     // Static States
     const marketPrice = stock.updated_price;
-    const cashBalance = user?.cash_balance;    
+    const cashBalance = user?.cash_balance;
 
     const sharesPurchasedVal = parseInt(sharesOrder, 10);
 
-    // const averageUserStockValue = userStocks.find(stock => parseInt(stock.stock_id, 10) === parseInt(stockId, 10))?.share_price ?? 0;
+    const averageUserStockValue = userStocks.find(stock => parseInt(stock.stock_id, 10) === parseInt(stockId, 10))?.share_price ?? 0;
 
     const isBuyButtonDisabled = cashBalance < marketPrice * sharesPurchasedVal || sharesPurchasedVal === 0;
     const isSellButtonDisabled = sharesOrder > sharesOwned || sharesOwned === 0 || sharesPurchasedVal === 0;
@@ -56,7 +76,12 @@ const StockDetailsPage = () => {
         setSharesOrder(0);
         setEstimatedCost(0);
         setSharesOwned(shares);
+
     };
+
+    // const watchlistRefreshHandler = (bool) => {
+    //     setToggleWatchlist(bool);
+    // }
 
     const shareHandler = (event) => {
         const shareValue = event.target.value;
@@ -76,26 +101,27 @@ const StockDetailsPage = () => {
     const buyButtonHandler = async () => {
         const totalShares = sharesOwned + sharesPurchasedVal;
 
-        // const totalInvestedOwned =  sharesOwned * averageUserStockValue;
-        // const totalInvestedPurchased = sharesPurchasedVal * estimatedCost;
-        // const totalInvested = totalInvestedOwned + totalInvestedPurchased;
-        // const totalPricePerShare = parseFloat((totalInvested / totalShares).toFixed(2));
+        const totalInvestedOwned =  sharesOwned * averageUserStockValue;
+        const totalInvestedPurchased = sharesPurchasedVal * estimatedCost;
+        const totalInvested = totalInvestedOwned + totalInvestedPurchased;
+        const totalPricePerShare = parseFloat((totalInvested / totalShares).toFixed(2));
 
-        // console.log('Test 3:', totalPricePerShare, typeof totalPricePerShare);
+        console.log('Test 3:', totalPricePerShare, typeof totalPricePerShare);
 
-        // console.log('Data 1: Owned - (Shares):', sharesOwned);
-        // console.log('Data 2: Owned - (Price/Share):', averageUserStockValue);
-        // console.log('Data 3: Owned - (Total Invtesed):', totalInvestedOwned);
-        // console.log('Data 4: Purchased - (Shares):', sharesPurchasedVal);
-        // console.log('Data 5: Purchased - (Price/Share):', marketPrice);
-        // console.log('Data 5: Purchased - (Total Invtesed):', estimatedCost);
-        // console.log('Data 6: Total - (Shares):', totalShares);
-        // console.log('Data 7: Total - (Price/Share):', totalPricePerShare);
-        // console.log('Data 8: Total - (Total Invtesed):', totalInvested);
+        console.log('Data 1: Owned - (Shares):', sharesOwned);
+        console.log('Data 2: Owned - (Price/Share):', averageUserStockValue);
+        console.log('Data 3: Owned - (Total Invtesed):', totalInvestedOwned);
+        console.log('Data 4: Purchased - (Shares):', sharesPurchasedVal);
+        console.log('Data 5: Purchased - (Price/Share):', marketPrice);
+        console.log('Data 5: Purchased - (Total Invtesed):', estimatedCost);
+        console.log('Data 6: Total - (Shares):', totalShares);
+        console.log('Data 7: Total - (Price/Share):', totalPricePerShare);
+        console.log('Data 8: Total - (Total Invtesed):', totalInvested);
         
         if (cashBalance >= marketPrice * sharesPurchasedVal) {
             alert(`Purchased ${sharesPurchasedVal} shares of ${stock.ticker} for $${estimatedCost}`);
 
+            // 'share_price': totalPricePerShare
             const updateStock = {
                 'num_shares': totalShares
             }            
@@ -127,7 +153,7 @@ const StockDetailsPage = () => {
                 'num_shares': totalShares
             } 
 
-            console.log('Data 1:', totalShares, stockId, estimatedCost);
+            console.log('Data 1:', totalShares, stockId, );
             
             if (totalShares === 0) {
                 // await dispatch(updateUserStockThunk(stockId, updateStock));
@@ -146,15 +172,88 @@ const StockDetailsPage = () => {
         }
     };
 
+    const addWatchlistHandler = async () => {    
+        // console.log('Data 1:', stock.Is_in_watchlist);
+        const var2 = stock.Is_in_watchlist;
+
+        // if (var2) {
+        //     console.log('Log 1:', var2);
+        //     await removeFromWatchlistThunk(stockId);            
+        // }
+
+        // if (!var2) {
+        //     console.log('Log 2:', var2);     
+        //     await addToWatchlistThunk(stockId);      
+        // }
+
+        console.log('Log 1:', var2);
+        await dispatch(addToWatchlistThunk(stockId));
+
+        // stock.Is_in_watchlist = !var2;
+
+        // var2 = !var2
+
+        // watchlistRefreshHandler(!var2);
+
+        // if (sharesOwned > 0 && sharesOwned >= sharesPurchasedVal) {
+        //     alert(`Sold ${sharesPurchasedVal} shares of ${stock.ticker} for $${estimatedCost}`);
+
+        //     const totalShares = sharesOwned - sharesPurchasedVal;
+
+        //     const updateStock = {
+        //         'num_shares': totalShares
+        //     } 
+
+        //     console.log('Data 1:', totalShares, stockId, );
+            
+        //     if (totalShares === 0) {
+        //         // await dispatch(updateUserStockThunk(stockId, updateStock));
+        //         // console.log('Data 1:', totalShares );
+        //         await dispatch(removeUserStockThunk(parseInt(stockId, 10)));
+        //     }
+
+        //     if (totalShares > 0) {
+        //         await dispatch(updateUserStockThunk(stockId, updateStock));
+        //     }
+            
+        //     const new_balance = parseFloat((parseFloat(estimatedCost)).toFixed(2));
+        //     await dispatch(updateUserBalanceThunk(new_balance));
+
+        //     refreshHandler(totalShares);
+        // }
+    };
+
+    const removeWatchlistHandler = async () => {    
+        // console.log('Data 1:', stock.Is_in_watchlist);
+        const var2 = stock.Is_in_watchlist;
+
+        // if (var2) {
+        //     console.log('Log 1:', var2);
+        //     await removeFromWatchlistThunk(stockId);            
+        // }
+
+        // if (!var2) {
+        //     console.log('Log 2:', var2);     
+        //     await addToWatchlistThunk(stockId);      
+        // }
+
+        console.log('Log 2:', var2);
+        await dispatch(removeFromWatchlistThunk(getWatchlistId()));
+
+        // stock.Is_in_watchlist = !var2;
+
+        // var2 = !var2
+
+        // watchlistRefreshHandler(!var2);
+
+    };
+
     const buyingPowerHandler = () => {
         return cashBalance?.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2 
         });
     }
-
-    // const isBuyButtonDisabled = cashBalance < marketPrice * sharesPurchasedVal || sharesPurchasedVal === 0;
-    // const isSellButtonDisabled = sharesOrder > stock.user_shares || sharesOwned === 0 || sharesPurchasedVal === 0;
 
     return (
         <div className='stock-details-page-container'>
@@ -213,7 +312,30 @@ const StockDetailsPage = () => {
 
                 <div>{sharesOwned} Shares Available</div>
                 
-                <div>+ Add to Watchlist</div>
+                <div>
+                    {/* {stock.Is_in_watchlist ? ()} */}
+                    {/* {stock.Is_in_watchlist ? ('+ Add to Watchlist') : ('- Remove from Watchlist')} */}
+
+                    {getWatchlistId() ? (
+                        <button
+                            onClick={removeWatchlistHandler}
+                        >
+                            - Remove from Watchlist
+                        </button>
+                    ) : (
+                        <button
+                            onClick={addWatchlistHandler}
+                        >
+                            + Add to Watchlist
+                        </button>
+                    )}
+
+                    {/* <button
+                        onClick={watchlistHandler}
+                    >
+                        {stock.Is_in_watchlist ? ('+ Add to Watchlist') : ('- Remove from Watchlist')}
+                    </button> */}
+                </div>
             </div>
 
             {/* <div>+ Add to Watchlist</div> */}
