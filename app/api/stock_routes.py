@@ -35,9 +35,6 @@ def stocks():
     } for stock in all_stocks]
 
     data = {"stocks": all_stocks_dict}
-    print("================================")
-    print(data)
-    print("================================")
     response = make_response(jsonify(data), 200)  # Sets a 404 Not Found status code
     response.headers["Content-Type"] = "application/json"
     return response
