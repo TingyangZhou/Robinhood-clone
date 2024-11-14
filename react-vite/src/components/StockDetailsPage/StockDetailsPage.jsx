@@ -133,7 +133,7 @@ const StockDetailsPage = () => {
             }
 
             const new_balance = parseFloat(( -estimatedCost).toFixed(2));
-            await dispatch(updateUserBalanceThunk(new_balance));
+            dispatch(updateUserBalanceThunk(new_balance));
            
             refreshHandler(totalShares);
 
@@ -161,7 +161,10 @@ const StockDetailsPage = () => {
             }
             
             const new_balance = parseFloat((parseFloat(estimatedCost)).toFixed(2));
-            await dispatch(updateUserBalanceThunk(new_balance));
+            // await dispatch(updateUserBalanceThunk(new_balance));
+            dispatch(updateUserBalanceThunk(new_balance));
+
+            // alert(`Sold ${sharesOrderFomrat} shares of ${stock.ticker} for $${formatHandler(estimatedCost)}`);
 
             refreshHandler(totalShares);
 
