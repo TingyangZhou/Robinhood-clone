@@ -1,10 +1,9 @@
 import "./Navigation.css";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { getAllSearchStocksThunk, getAllStocksThunk } from "../../redux/stocks";
-import { useDispatch } from "react-redux";
 import { useNavigate, NavLink, useLocation } from "react-router-dom";
 import ProfileButton from "./ProfileButton.jsx"
+import { FaFeather, FaSearch } from "react-icons/fa"
 
 
 
@@ -14,20 +13,22 @@ import ProfileButton from "./ProfileButton.jsx"
 function Navigation() {
   const sessionUser = useSelector((state) => state.session.user);
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const location = useLocation()
 
 
   const [searchInput, setSearchInput] = useState("");
 
-
+  //reset search bar when navigating away from home
   useEffect(() => {
-    if(location.pathname != "/search" && location.pathname != "/"){
-      setSearchInput("")
+    if(location.pathname != "/search"){
+      removeSearchState()
     }
-    
   }, [location])
 
+  const removeSearchState = () => {
+    sessionStorage.removeItem("searchText")
+    setSearchInput("")
+  }
 
 
 
@@ -36,13 +37,15 @@ function Navigation() {
   const handleSearch = async () => {
 
     if(searchInput == ""){
-       await dispatch(getAllStocksThunk())
-    }
-    else{
-      await dispatch(getAllSearchStocksThunk(searchInput))
+       navigate("/")
+       sessionStorage.removeItem("searchText")
+       console.log("navigating home")
+       return
     }
     console.log("Search submitted:", searchInput);
+    sessionStorage.setItem("searchText", searchInput)
     navigate("/search", { state: { from: "/search", searchInput: searchInput } })
+    
   };
 
 
@@ -59,14 +62,18 @@ function Navigation() {
   const navClassName = sessionUser ? "nav-bar-main": "hidden-home-link"
   return (
     <header  className={navClassName}>
-      <div>
-        <NavLink to="/">Home</NavLink>
+      <div className="logo-home-container">
+        <NavLink  onClick={removeSearchState} to="/"><FaFeather className="robinhood-logo-home"/></NavLink>
       </div>
-      <div><input
+      <div className="search-bar-container">
+        <FaSearch />
+        <input
        type="text"
        placeholder="search for stocks..."
-       value={searchInput}
-       onChange={(e) => setSearchInput(e.target.value)}
+       onChange={(e) => {
+        setSearchInput(e.target.value)
+        sessionStorage.removeItem("searchText")}}
+       value={ sessionStorage.getItem("searchText") ? sessionStorage.getItem("searchText") : searchInput}
        onKeyDown={handleKeyDown}
        ></input></div>
       <div>

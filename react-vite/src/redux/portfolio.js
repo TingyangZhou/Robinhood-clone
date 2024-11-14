@@ -64,7 +64,7 @@ export const addUserStockThunk = (stockId, stockData) => async (dispatch) => {
         body: JSON.stringify(stockData)
     });
     const data = await response.json();
-    dispatch(addUserStockAction(data.stock));
+    dispatch(addUserStockAction(data));
     return data;
 };
 
@@ -79,14 +79,14 @@ export const removeUserStockThunk = (stockId) => async (dispatch) => {
 
 export const updateUserStockThunk = (stockId, stockData) => async (dispatch) => {
     const response = await fetch(`/api/portfolio/${stockId}/current`, {
-        method: 'PUT',
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(stockData)
     });
     const data = await response.json();
-    dispatch(updateUserStockAction(data.stock));
+    dispatch(updateUserStockAction(data));
     return data;
 };
 

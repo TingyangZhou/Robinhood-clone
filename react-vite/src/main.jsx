@@ -6,6 +6,11 @@ import configureStore from "./redux/store";
 import { router } from "./router";
 import * as sessionActions from "./redux/session";
 import "./index.css";
+import { ThemeProvider } from "./context/ThemeContext";
+// import { loadTheme } from './themeUtils';
+
+// // Load the current theme before rendering the app
+// loadTheme();
 
 const store = configureStore();
 
@@ -16,8 +21,10 @@ if (import.meta.env.MODE !== "production") {
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ReduxProvider store={store}>
-      <RouterProvider router={router} />
-    </ReduxProvider>
+     <ThemeProvider>
+        <ReduxProvider store={store}>
+          <RouterProvider router={router} />
+        </ReduxProvider>
+     </ThemeProvider>
   </React.StrictMode>
 );

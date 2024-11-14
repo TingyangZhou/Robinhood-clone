@@ -1,7 +1,7 @@
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate} from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
-// import { getAllStocksThunk } from '../../redux/stocks';
+// // import { getAllStocksThunk } from '../../redux/stocks';
 import { useEffect } from 'react';
 import AllStocksList from '../AllStocksList';
 import WatchlistStocksList from '../WatchlistStocksList';
@@ -13,18 +13,16 @@ import { getAllWatchlistThunk} from '../../redux/watchlist';
 
 export default function SearchHome() {
     // const data = useLoaderData();
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const dispatch = useDispatch()
     const sessionUser = useSelector((state) => state.session.user);
     const allStocks = useSelector((state) => state.stocks.stocks);
 
-
     useEffect(() => {
         dispatch(getAllWatchlistThunk())
-        if(!Object.keys(allStocks).length){
-            navigate("/")
-        }
-    }, [dispatch,allStocks,navigate])
+    }, [dispatch])
+
+    
 
 
     if (!sessionUser) {

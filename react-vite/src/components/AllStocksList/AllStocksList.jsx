@@ -14,24 +14,22 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
 
     const location = useLocation();
 
-    const { searchInput } = location.state || { from: "unknown", searchInput: null };
+    const { searchInput } = location.state || { from: "unknown", searchInput: "" };
 
     const redirectToStockPage = stockId => {
         navigate(`/stocks/${stockId}`)
     }
 
     useEffect(() => {
-        if(Object.keys(stocks).length){
-            if(searchInput){
-                console.log(searchInput)
-                dispatch(getAllSearchStocksThunk(searchInput))
-            }
-            else{
-                dispatch(getAllStocksThunk())
-            }
+        if(location.pathname == "/search"){
+            console.log("dispatching search stocks in allstockslist component")
+            dispatch(getAllSearchStocksThunk(searchInput))
+        }
+        else{
+             dispatch(getAllStocksThunk())
         }
 
-    }, [watchlistStocks,dispatch, searchInput,stocks])
+    }, [watchlistStocks, searchInput, dispatch, location])
 
 
     const handleWatchlistButton = (e, associatedStock) => {
@@ -58,7 +56,7 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
             <div className="company-name-list-item-home"><p>Company Name</p></div>
                     <div className="ticker-list-item-home"><p>Symbol</p></div>
                     <div className="updated-price-list-item-home"><p>Market Price</p></div>
-                    <div className="button-list-item-home">Add to watchlist</div>
+                    <div className="button-list-item-home"><p>Add to watchlist</p></div>
         </div>)]
         const arrStocks = Object.values(stocks)
         for(let i = startingPoint; i < startingPoint + pageSize && i < Object.keys(stocks).length ; i++){
@@ -83,7 +81,7 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
         const numPages = Math.ceil(numStocks / pageSize)
         for(let i = 1; i <= numPages; i++){
             finalHTMLItems.push((
-                <p onClick={() => setCurrPage(i)}key={i}className={currPage == i ? "current-page-link": ""}>{i}</p>
+                <p onClick={() => setCurrPage(i)}key={i}className={currPage == i ? "current-page-link-home": ""}>{i}</p>
             ))
         }
         return finalHTMLItems
@@ -112,6 +110,7 @@ export default function AllStocksList({stocks, pageSize, heightPx}) {
                 </div>
             <footer className="pagination-footer-home"><p>Page {currPage}</p><div className="pagination-footer-items-container-home">{paginationFooterFormatter(stocks)}</div></footer>
         </section>
+        
     )
 }
 

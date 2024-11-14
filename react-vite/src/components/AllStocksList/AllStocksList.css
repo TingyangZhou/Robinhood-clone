@@ -58,7 +58,8 @@
 
 .pagination-footer-items-container-home {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: center;
   width: 100px;
 }
 
@@ -67,17 +68,37 @@
   cursor: pointer;
 }
 
+.pagination-footer-items-container-home p {
+  margin: 0 8px;
+  font-size: 17px;
+  font-weight: 700px;
+
+}
+
+
+
 .current-page-link-home {
-  color: red
+  color: #fb641c
 }
 
 .add-to-watchlist-home-button {
   justify-self: center;
   background-color: white;
   font-size: 20px;
+  border-radius: 5px;;
 }
 
 .add-to-watchlist-home-button:hover {
   color: #fb641c;
   cursor: pointer;
 }
+
+.dark-mode .button-list-item-home button{
+  color: #fb641c;
+  background-color: #121212;;
+}
+
+.dark-mode .current-page-link-home {
+  color: #fb641c
+}
+

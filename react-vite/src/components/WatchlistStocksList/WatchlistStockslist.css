@@ -31,6 +31,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 5px;
 }
 
 .watchlist-item-button-inner:hover {
@@ -80,4 +81,10 @@
 
   .watchlist-list div p {
     font-size: 15px;
+  }
+
+  .dark-mode .watchlist-item-button-inner {
+    color: #fb641c;
+    border-radius: 5px;
+    background-color: #121212;;
   }

@@ -47,12 +47,16 @@ def get_current_user_portfolio():
 @login_required
 def handle_portfolio_stock(stockId):
     try:
-        num_shares = request.json.get('num_shares')
+        # num_shares = request.json.get('num_shares')
+        print('Data 3:', stockId, type(stockId))
         stock = Stock.query.get(stockId)
+        print('Data 4:', stockId, type(stockId))
         user_id = current_user.get_id()
+        print('Data 5:', stockId, type(stockId))
         if (stock):
             if (request.method =='POST'):
                 # step 1/2 for POST. try adding data to database 
+                num_shares = request.json.get('num_shares') # Debugged for frontend (Adrian)
                 updated_price = stock.updated_price
                 new_user_stock = UserStock(
                     user_id = user_id,
@@ -74,7 +78,11 @@ def handle_portfolio_stock(stockId):
                     db.session.commit()
                     return make_response(jsonify({"message": "successfully deleted"}), 200, {"Content-Type": "application/json"})
                 elif request.method =='PATCH':
+                    num_shares = request.json.get('num_shares') # Debugged for frontend (Adrian)
+                    updated_price = request.json.get("updated_price")
                     target_user_stock.share_quantity = num_shares
+                    if updated_price:
+                        target_user_stock.share_price = updated_price
                     db.session.commit()
                     res_user_stock_id=target_user_stock.id
             # step 2/2 for POST & PATCH. construct response dictionary 
@@ -87,6 +95,8 @@ def handle_portfolio_stock(stockId):
                 "updated_price": stock.updated_price,
                 "share_quantity": num_shares
             }
+            if request.method == "PATCH" and updated_price:
+                new_user_stock_dict["updated_price"] = updated_price
             return make_response(jsonify(new_user_stock_dict), 201, {"Content-Type": "application/json"})
         else:
             #when the stock is not available in the stock universe

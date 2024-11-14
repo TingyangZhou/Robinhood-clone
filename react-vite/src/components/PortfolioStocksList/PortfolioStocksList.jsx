@@ -16,9 +16,9 @@ export default function PortfolioStocksList({stocks, pageSize, heightPx}) {
             <div key={-1} className="stock-list-header">
                 <div className="company-name-list-item"><p>Company Name</p></div>
                 <div className="ticker-list-item"><p>Ticker</p></div>
-                <div className="updated-price-list-item"><p>Market Price($)</p></div>
+                <div className="updated-price-list-item"><p>Market Price</p></div>
                 <div className="quantity-list-item"><p>Quantity</p></div>
-                <div className="market-value-list-item"><p>Value($)</p></div>
+                <div className="market-value-list-item"><p>Value</p></div>
             </div>
         )]
 
