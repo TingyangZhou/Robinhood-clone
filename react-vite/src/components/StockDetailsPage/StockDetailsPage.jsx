@@ -107,39 +107,30 @@ const StockDetailsPage = () => {
         const totalShares = sharesOwned + sharesPurchasedVal;
 
         const totalInvestedOwned =  sharesOwned * averageUserStockValue;
-        // console.log('Test 1:', totalInvestedOwned, typeof totalInvestedOwned);
-
-        // const formatestimatedCost = parseFloat(estimatedCost);
-        console.log('Test 2.2:', estimatedCost, typeof estimatedCost)
-
-        const totalInvestedPurchased = sharesPurchasedVal * estimatedCost;
-        // console.log('Test 2:', totalInvestedPurchased, typeof totalInvestedPurchased);
-        // console.log('Test 2.1:', sharesPurchasedVal, typeof sharesPurchasedVal);
-        // console.log('Test 2.2:', formatestimatedCost, typeof formatestimatedCost);
-
-        // issue is here
-        const totalInvested = totalInvestedOwned + totalInvestedPurchased;
-
+        // const totalInvestedPurchased = sharesPurchasedVal * estimatedCost;
+        const totalInvested = totalInvestedOwned + estimatedCost;
         const totalPricePerShare = parseFloat((totalInvested / totalShares).toFixed(2));
 
-        console.log('Test 3:', totalPricePerShare, typeof totalPricePerShare);
+        // const tfuncTest = parseFloat((((sharesOwned * averageUserStockValue) + (sharesPurchasedVal * estimatedCost)) / (sharesOwned + sharesPurchasedVal)).toFixed(2));
 
-        console.log('Data 1: Owned - (Shares):', sharesOwned);
-        console.log('Data 2: Owned - (Price/Share):', averageUserStockValue);
-        console.log('Data 3: Owned - (Total Invtesed):', totalInvestedOwned);
-        console.log('Data 4: Purchased - (Shares):', sharesPurchasedVal);
-        console.log('Data 5: Purchased - (Price/Share):', marketPrice);
-        console.log('Data 5: Purchased - (Total Invtesed):', estimatedCost);
-        console.log('Data 6: Total - (Shares):', totalShares);
-        console.log('Data 7: Total - (Price/Share):', totalPricePerShare);
-        console.log('Data 8: Total - (Total Invtesed):', totalInvested);
+        // console.log('Test 3:', totalPricePerShare, typeof totalPricePerShare);
+
+        // console.log('Data 1: Owned - (Shares):', sharesOwned);
+        // console.log('Data 2: Owned - (Price/Share):', averageUserStockValue);
+        // console.log('Data 3: Owned - (Total Invtesed):', totalInvestedOwned);
+        // console.log('Data 4: Purchased - (Shares):', sharesPurchasedVal);
+        // console.log('Data 5: Purchased - (Price/Share):', marketPrice);
+        // console.log('Data 5: Purchased - (Total Invtesed):', estimatedCost);
+        // console.log('Data 6: Total - (Shares):', totalShares);
+        // console.log('Data 7: Total - (Price/Share):', totalPricePerShare);
+        // console.log('Data 8: Total - (Total Invtesed):', totalInvested);
         
         if (cashBalance >= marketPrice * sharesPurchasedVal) {
             alert(`Purchased ${sharesPurchasedVal} shares of ${stock.ticker} for $${estimatedCost}`);
 
-            // 'share_price': totalPricePerShare
             const updateStock = {
-                'num_shares': totalShares
+                'num_shares': totalShares,
+                'updated_price': totalPricePerShare
             }            
 
             console.log('Tracer 1.1:', totalShares, stockId, estimatedCost);
@@ -154,13 +145,9 @@ const StockDetailsPage = () => {
                 console.log('Tracer 1.3:');
             }
 
-            console.log('Tracer 1.4:', estimatedCost, typeof estimatedCost);
-            console.log('Tracer 1.4.1:', estimatedCost.toLocaleString(), typeof estimatedCost.toLocaleString());
-            const new_balance = parseFloat(-(estimatedCost).toFixed(2));
-            console.log('Tracer 1.5:', new_balance);
+            const new_balance = parseFloat(( -estimatedCost).toFixed(2));
 
             await dispatch(updateUserBalanceThunk(new_balance));
-            console.log('Tracer 1.6:');
            
             refreshHandler(totalShares);
         }
@@ -171,12 +158,29 @@ const StockDetailsPage = () => {
             alert(`Sold ${sharesPurchasedVal} shares of ${stock.ticker} for $${estimatedCost}`);
 
             const totalShares = sharesOwned - sharesPurchasedVal;
+            const totalPricePerShare = parseFloat((((sharesOwned * averageUserStockValue) + (sharesPurchasedVal * estimatedCost)) / (sharesOwned + sharesPurchasedVal)).toFixed(2));
+
+            const totalInvestedOwned =  sharesOwned * averageUserStockValue;
+            // const totalInvestedPurchased = sharesPurchasedVal * estimatedCost;
+            // const totalInvested = totalInvestedOwned + totalInvestedPurchased;
+            const totalInvested = totalInvestedOwned + estimatedCost;
+
+            // console.log('Data 1: Owned - (Shares):', sharesOwned);
+            // console.log('Data 2: Owned - (Price/Share):', averageUserStockValue);
+            // console.log('Data 3: Owned - (Total Invtesed):', totalInvestedOwned);
+            // console.log('Data 4: Purchased - (Shares):', sharesPurchasedVal);
+            // console.log('Data 5: Purchased - (Price/Share):', marketPrice);
+            // console.log('Data 5: Purchased - (Total Invtesed):', estimatedCost);
+            // console.log('Data 6: Total - (Shares):', totalShares);
+            // console.log('Data 7: Total - (Price/Share):', totalPricePerShare);
+            // console.log('Data 8: Total - (Total Invtesed):', totalInvested);
 
             const updateStock = {
-                'num_shares': totalShares
+                'num_shares': totalShares,
+                'updated_price': totalPricePerShare
             } 
 
-            console.log('Data 1:', totalShares, stockId, );
+            console.log('Data 1:', totalShares, totalPricePerShare, );
             
             if (totalShares === 0) {
                 await dispatch(removeUserStockThunk(parseInt(stockId, 10)));
@@ -194,12 +198,12 @@ const StockDetailsPage = () => {
     };
 
     const addWatchlistHandler = async () => {    
-        console.log('Log 1:', stock.Is_in_watchlist);
+        // console.log('Log 1:', stock.Is_in_watchlist);
         await dispatch(addToWatchlistThunk(stockId));
     };
 
     const removeWatchlistHandler = async () => {    
-        console.log('Log 2:', stock.Is_in_watchlist);
+        // console.log('Log 2:', stock.Is_in_watchlist);
         await dispatch(removeFromWatchlistThunk(getWatchlistId()));
     };
 
