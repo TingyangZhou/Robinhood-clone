@@ -68,8 +68,8 @@ const StockDetailsPage = () => {
         }
     };
 
-    const isBuyButtonDisabled = cashBalance < marketPrice * sharesOrderFomrat || sharesOrderFomrat === 0;
-    const isSellButtonDisabled = sharesOrder > sharesOwned || sharesOwned === 0 || sharesOrderFomrat === 0;
+    const isBuyButtonDisabled = cashBalance < marketPrice * sharesOrderFomrat || sharesOrderFomrat === 0 || sharesOrder === '';
+    const isSellButtonDisabled = sharesOrder > sharesOwned || sharesOwned === 0 || sharesOrderFomrat === 0 || sharesOrder === '';
 
 
     // Loading States
@@ -95,12 +95,15 @@ const StockDetailsPage = () => {
         // if (event)
         const shareValue = event.target.value;
         console.log('Data 1', shareValue, typeof shareValue);
+
+        if (shareValue !== '') {
+            if (parseInt(shareValue) < 0 || isNaN(parseInt(shareValue)) || shareValue.includes('.')) {
+                alert('Value has to be a positive integer');
+                event.target.value = 0
+                return
+            }
+        } 
         
-        if (parseInt(shareValue) < 0 || isNaN(parseInt(shareValue)) || shareValue.includes('.')) {
-            alert('Value has to be a positive integer');
-            event.target.value = 0
-            return
-        }
 
         setSharesOrder(shareValue);
         estimatedCostHandler(shareValue);
