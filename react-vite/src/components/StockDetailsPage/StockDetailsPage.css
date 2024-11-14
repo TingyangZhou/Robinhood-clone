@@ -56,7 +56,8 @@
     width: 100%;
     padding: 12px;
     font-size: 14px;
-    border: none;
+    /* border: none; */
+    border: 2px solid #b83a00;
     border-radius: 20px;
     cursor: pointer;
     background-color: #b83a00;
@@ -67,6 +68,7 @@
 
 .right-menu button:hover {
     background-color: #fb641c;
+    border: 2px solid #fb641c;
 }
 
 .right-menu button:disabled {
@@ -78,6 +80,7 @@
 
 .dark-mode .right-menu button:hover {
     background-color: #fb641c;
+    border: 2px solid #fb641c;
 }
 
 .dark-mode .right-menu button:disabled {
