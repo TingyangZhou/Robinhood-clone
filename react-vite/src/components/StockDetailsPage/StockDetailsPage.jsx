@@ -160,10 +160,10 @@ const StockDetailsPage = () => {
             const totalShares = sharesOwned - sharesPurchasedVal;
             const totalPricePerShare = parseFloat((((sharesOwned * averageUserStockValue) + (sharesPurchasedVal * estimatedCost)) / (sharesOwned + sharesPurchasedVal)).toFixed(2));
 
-            const totalInvestedOwned =  sharesOwned * averageUserStockValue;
+            // const totalInvestedOwned =  sharesOwned * averageUserStockValue;
             // const totalInvestedPurchased = sharesPurchasedVal * estimatedCost;
             // const totalInvested = totalInvestedOwned + totalInvestedPurchased;
-            const totalInvested = totalInvestedOwned + estimatedCost;
+            // const totalInvested = totalInvestedOwned + estimatedCost;
 
             // console.log('Data 1: Owned - (Shares):', sharesOwned);
             // console.log('Data 2: Owned - (Price/Share):', averageUserStockValue);
