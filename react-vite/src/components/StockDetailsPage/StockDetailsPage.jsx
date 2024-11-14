@@ -92,7 +92,16 @@ const StockDetailsPage = () => {
     }
 
     const shareHandler = (event) => {
+        // if (event)
         const shareValue = event.target.value;
+        console.log('Data 1', shareValue, typeof shareValue);
+        
+        if (parseInt(shareValue) < 0 || isNaN(parseInt(shareValue)) || shareValue.includes('.')) {
+            alert('Value has to be a positive integer');
+            event.target.value = 0
+            return
+        }
+
         setSharesOrder(shareValue);
         estimatedCostHandler(shareValue);
     };
@@ -186,6 +195,7 @@ const StockDetailsPage = () => {
                         value={sharesOrder}
                         step='1'
                         onChange={shareHandler}
+                        min="0"
                     />
                 </div>
 

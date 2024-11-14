@@ -19,6 +19,10 @@ a {
   margin: 1.25rem auto;
 }
 
+.dark-mode .pagination-footer-items-container *{
+  border:none;
+}
+
 .stock-list-header {
   padding: 0.625rem;
   display: flex;
