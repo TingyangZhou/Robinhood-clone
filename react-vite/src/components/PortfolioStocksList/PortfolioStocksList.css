@@ -1,12 +1,63 @@
-/* .port-page-container{
-  padding:0rem 5rem
-} */
 
 
 /* Link Styling */
 a {
   text-decoration: none;
   color: #333;
+}
+
+.top-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items:flex-start;
+  width: 100%;
+  max-width: 62.5rem;
+  margin: 0 auto;
+  position:relative;
+  /* border: 1px red solid; */
+}
+
+.pie-chart-container {
+  width: 20rem;
+  height: 30rem;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+#chart-title{
+  text-align: center;
+  font-weight: bold;
+}
+
+/* User Info Section */
+.user-info {
+  min-width:50% !important;
+  /* max-width: 40%; */
+  padding: 1.25rem;
+  background-color: #ffffff;
+  flex: 1;
+  border: 1px #cecece solid;
+  border-radius: 5px;
+  position:absolute !important;
+  top:10% !important
+}
+
+/* User Info Section */
+/* .user-info {
+  max-width: 62.5rem;
+  margin: auto;
+  padding: 1.25rem;
+  background-color: #ffffff;
+  border:1px #cecece solid;
+  border-radius: 5px;
+ 
+} */
+
+.user-info .username, .user-info .user-email {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 0.625rem;
 }
 
 /* Main Container Styling */
@@ -155,22 +206,7 @@ a {
   width: 12.5rem;
 }
 
-/* User Info Section */
-.user-info {
-  max-width: 62.5rem;
-  margin: 1.25rem auto;
-  padding: 1.25rem;
-  background-color: #ffffff;
-  /* border:1px #cecece solid;
-  border-radius: 5px; */
- 
-}
 
-.user-info .username, .user-info .user-email {
-  font-size: 1.125rem;
-  font-weight: bold;
-  margin-bottom: 0.625rem;
-}
 
 .balances {
   list-style-type: none;
@@ -238,9 +274,26 @@ button {
 
 /* Small Screen Adjustments */
 @media (max-width: 768px) {
+  .top-header {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+
   .stocks-all-list, .user-info, .stocks-all-list-container {
     max-width: 100%;
     margin: 0.625rem;
+  }
+
+  .user-info {
+    min-width: 0%;
+    max-width: 100%;
+    position: relative;
+    margin-bottom: 1rem;
   }
 
   .header-container {

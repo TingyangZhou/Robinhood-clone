@@ -8,6 +8,9 @@ import { useModal } from '../../context/Modal';
 import PortfolioStocksList from '../PortfolioStocksList';
 import { Navigate } from 'react-router-dom';
 
+import { Pie } from 'react-chartjs-2'; 
+import 'chart.js/auto'; 
+
 function PortfolioPage(){
     const dispatch = useDispatch()
     const [fund ,setFund] = useState(0)
@@ -72,25 +75,72 @@ function PortfolioPage(){
     const formattedMarketValue=market_value.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const formattedCashBalance = userInfo?.cash_balance ? userInfo.cash_balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0.00";
     const formattedTotalBalance =  userInfo?.cash_balance ? total_balance.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "0.00";
+
+    // preparing for pie chart
+    const sortedStocks = userStocks && Object.keys(userStocks).length > 0 ? Object.values(userStocks).sort((a, b) => (b.share_quantity * b.updated_price) - (a.share_quantity * a.updated_price)) : [];
+    const pieData = {
+        labels: ['Cash Balance', ...userStocks ? Object.values(userStocks).map(stock => stock.ticker) : []],
+        datasets: [
+            {
+                data: [
+                    userInfo?.cash_balance || 0,
+                    ...userStocks ? Object.values(userStocks).map(stock => stock.share_quantity * stock.updated_price) : []
+                ],
+                backgroundColor: [
+                    '#cecece', 
+                    ...sortedStocks.map((stock, index) => `rgba(251, 100, 28, ${(1 - (index / sortedStocks.length) * 0.9).toFixed(2)})`) 
+                ],
+                borderColor: '#ffffff', 
+                borderWidth: 1 
+            }
+        ]
+    };
+
+    const pieOptions = {
+        plugins: {
+            legend: {
+                display: false 
+            },
+            tooltip: {
+                callbacks: {
+                    label: function (tooltipItem) {
+                        const value = pieData.datasets[0].data[tooltipItem.dataIndex];
+                        const percentage = ((value / total_balance) * 100).toFixed(2);
+                        return `${pieData.labels[tooltipItem.dataIndex]}: $${value.toLocaleString()} (${percentage}%)`;
+                    }
+                }
+            }
+        }
+    };
+    
+    
+    
+    
     return (
         <div className='port-page-container'>
-            <div className='user-info'>
-                <p className='username'>{userInfo? userInfo.username : null}</p>
-                <p className='user-email'>{userInfo? userInfo.email : null}</p>
-                <ul className='balances'>
-                    <li className='balance-item'>
-                        <span className='balance-description'>Cash Balance:</span>
-                        <span className='balance-amount'>$ {formattedCashBalance}</span>
-                    </li>
-                    <li className='balance-item'>
-                        <span className='balance-description'>Stock Market Value:</span>
-                        <span className='balance-amount'>$ {formattedMarketValue}</span>
-                    </li>
-                    <li className='balance-item'>
-                        <span className='balance-description'>Total Balance:</span>
-                        <span className='balance-amount'>$ {formattedTotalBalance}</span>
-                    </li>
-                </ul>
+            <div className='top-header'>
+                <div className='user-info'>
+                    <p className='username'>{userInfo? userInfo.username : null}</p>
+                    <p className='user-email'>{userInfo? userInfo.email : null}</p>
+                    <ul className='balances'>
+                        <li className='balance-item'>
+                            <span className='balance-description'>Cash Balance:</span>
+                            <span className='balance-amount'>$ {formattedCashBalance}</span>
+                        </li>
+                        <li className='balance-item'>
+                            <span className='balance-description'>Stock Market Value:</span>
+                            <span className='balance-amount'>$ {formattedMarketValue}</span>
+                        </li>
+                        <li className='balance-item'>
+                            <span className='balance-description'>Total Balance:</span>
+                            <span className='balance-amount'>$ {formattedTotalBalance}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div className="pie-chart-container">
+                    <h3 id='chart-title'>Portfolio Distribution</h3>
+                    <Pie data={pieData} options={pieOptions} />
+                </div>
             </div>
             <div className="header-container">
                 <form className="add-fund-form" onSubmit={handleSubmit}>
@@ -100,7 +150,7 @@ function PortfolioPage(){
                 <button className='liquidate-portfolio-button' onClick={handleClick}>Liquidate Portfolio</button>
             </div>
             <div className="portfolio-stocks-container">
-                {lengthOfStockList!==0 && <PortfolioStocksList stocks={userStocks} pageSize={11} heightPx={675}/>}
+                {lengthOfStockList!==0 && <PortfolioStocksList stocks={sortedStocks} pageSize={11} heightPx={675}/>}
             </div>
         </div> 
     )
