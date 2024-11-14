@@ -59,17 +59,30 @@
     border: none;
     border-radius: 20px;
     cursor: pointer;
-    background-color: #fb641c;
+    background-color: #b83a00;
     color: white;
     margin: 10px 0;
     /* transition: background-color 0.3s ease; */
 }
 
 .right-menu button:hover {
-    background-color: #b83a00;
+    background-color: #fb641c;
 }
 
 .right-menu button:disabled {
-    background-color: #b83a00;
+    background-color: transparent;
+    border: 2px solid #fb641c;
+    color: #fb641c;
+    cursor: default;
+}
+
+.dark-mode .right-menu button:hover {
+    background-color: #fb641c;
+}
+
+.dark-mode .right-menu button:disabled {
+    background-color: transparent;
+    border: 2px solid #fb641c;
+    color: #fb641c;
     cursor: default;
 }
