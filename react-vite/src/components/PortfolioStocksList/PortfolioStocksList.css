@@ -228,6 +228,10 @@ button {
   margin-bottom:0;
 }
 
+.dark-mode .pagination-footer-items-container *{
+  border:none;
+}
+
 /* Small Screen Adjustments */
 @media (max-width: 768px) {
   .stocks-all-list, .user-info, .stocks-all-list-container {
