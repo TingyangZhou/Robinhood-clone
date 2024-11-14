@@ -45,7 +45,7 @@ function LoginFormPage() {
         
       <h1 className='login-title'>Log in to RobinhoodClone</h1>
         {errors.length > 0 &&
-          errors.map((message) => <p key={message}>{message}</p>)}
+          errors.map((message) => <p className='error' key={message}>{message}</p>)}
           <form className = 'login-form' onSubmit={handleSubmit}>
           <label>
             Email
@@ -66,7 +66,7 @@ function LoginFormPage() {
               required
             />
           </label>
-          {errors.password && <p>{errors.password}</p>}
+          {errors.password && <p className='error'>{errors.password}</p>}
           <button className= 'login-button' type="submit">Log In</button>
           <button 
             onClick ={handleDemoLogin} 
