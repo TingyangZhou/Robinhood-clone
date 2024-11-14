@@ -23,6 +23,8 @@ const StockDetailsPage = () => {
     const [sharesOrder, setSharesOrder] = useState(0);
     const [sharesOwned, setSharesOwned] = useState(0);
     const [estimatedCost, setEstimatedCost] = useState(0);
+    const [isBuyButtonDisabled, setIsBuyButtonDisabled] = useState(true);
+    const [isSellButtonDisabled, setIsSellButtonDisabled] = useState(true);
 
     //!!! Stock chart code 1 starts here
     const { isDarkMode } = useTheme();
@@ -56,7 +58,6 @@ const StockDetailsPage = () => {
     const cashBalance = user?.cash_balance;
 
     const sharesOrderFomrat = parseInt(sharesOrder, 10);
-
     const averageUserStockValue = userStocks?.find(stock => parseInt(stock.stock_id, 10) === parseInt(stockId, 10))?.share_price ?? 0;
 
     const getWatchlistId = () => {
@@ -68,8 +69,16 @@ const StockDetailsPage = () => {
         }
     };
 
-    const isBuyButtonDisabled = cashBalance < marketPrice * sharesOrderFomrat || sharesOrderFomrat === 0 || sharesOrder === '';
-    const isSellButtonDisabled = sharesOrder > sharesOwned || sharesOwned === 0 || sharesOrderFomrat === 0 || sharesOrder === '';
+    // const isBuyButtonDisabled = cashBalance < marketPrice * sharesOrderFomrat || sharesOrderFomrat === 0 || sharesOrder === '';
+    // const isSellButtonDisabled = sharesOrder > sharesOwned || sharesOwned === 0 || sharesOrderFomrat === 0 || sharesOrder === '';
+
+    useEffect(() => {
+        const buyDisabled = cashBalance < marketPrice * sharesOrderFomrat || sharesOrderFomrat === 0 || sharesOrder === '';
+        const sellDisabled = sharesOrder > sharesOwned || sharesOwned === 0 || sharesOrderFomrat === 0 || sharesOrder === '';
+        
+        setIsBuyButtonDisabled(buyDisabled);
+        setIsSellButtonDisabled(sellDisabled);
+    }, [cashBalance, marketPrice, sharesOrder, sharesOrderFomrat, sharesOwned]);
 
 
     // Loading States
@@ -115,6 +124,8 @@ const StockDetailsPage = () => {
 
     const buyButtonHandler = async () => {        
         if (cashBalance >= marketPrice * sharesOrderFomrat) {
+            setIsBuyButtonDisabled(true);
+            setIsSellButtonDisabled(true);
 
             const totalShares = sharesOwned + sharesOrderFomrat;
             const totalPricePerShare = parseFloat((((sharesOwned * averageUserStockValue) + (estimatedCost)) / (sharesOwned + sharesOrderFomrat)).toFixed(2));
@@ -143,6 +154,8 @@ const StockDetailsPage = () => {
 
     const sellButtonHandler = async () => {        
         if (sharesOwned > 0 && sharesOwned >= sharesOrderFomrat) {
+            setIsBuyButtonDisabled(true);
+            setIsSellButtonDisabled(true);
 
             const totalShares = sharesOwned - sharesOrderFomrat;
             const totalPricePerShare = parseFloat((((sharesOwned * averageUserStockValue) + (estimatedCost)) / (sharesOwned + sharesOrderFomrat)).toFixed(2));
@@ -161,10 +174,7 @@ const StockDetailsPage = () => {
             }
             
             const new_balance = parseFloat((parseFloat(estimatedCost)).toFixed(2));
-            // await dispatch(updateUserBalanceThunk(new_balance));
             dispatch(updateUserBalanceThunk(new_balance));
-
-            // alert(`Sold ${sharesOrderFomrat} shares of ${stock.ticker} for $${formatHandler(estimatedCost)}`);
 
             refreshHandler(totalShares);
 
