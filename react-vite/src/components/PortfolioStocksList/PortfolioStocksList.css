@@ -39,7 +39,7 @@ a {
   flex: 1;
   border: 1px #cecece solid;
   border-radius: 5px;
-  position:absolute !important;
+  position:absolute;
   top:10% !important
 }
 
@@ -194,6 +194,7 @@ a {
   margin: 1.25rem auto;
   /* padding: 1.25rem; */
   background-color: #ffffff;
+  
 }
 
 /* Form Styling */
@@ -275,32 +276,50 @@ button {
 /* Small Screen Adjustments */
 @media (max-width: 768px) {
   .top-header {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: space-between;
     max-width: 100%;
     margin-bottom: 1rem;
+    
   }
 
 
   .stocks-all-list, .user-info, .stocks-all-list-container {
-    max-width: 100%;
+    max-width: 90%;
     margin: 0.625rem;
+    margin: 0 auto ;
+    /* border: 1px solid red; */
+
   }
 
+  
   .user-info {
     min-width: 0%;
-    max-width: 100%;
-    position: relative;
+    max-width: 80%;
+
     margin-bottom: 1rem;
+    position:relative;
+    margin: 0 auto ;
+    
   }
+
+  .pie-chart-container {
+    width: 20rem;
+    height: 30rem;
+    margin: 0 auto ;
+    
+   
+  }
+ 
 
   .header-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items:start;
+    justify-content: center;
+    align-items:center;
+
   }
 
   .stock-list-header, .stock-list-item, .pagination-footer, .balances li {
@@ -317,10 +336,20 @@ button {
     padding: 0.0625rem 0.25rem;
   }
 
+  .add-fund-form{
+    /* border: solid 1px red; */
+    display: flex;
+    flex-direction: column;
+
+  }
+
   .add-fund-form input {
     width: 20rem;
     margin-bottom: 0.625rem;
+
+
   }
+
 
   .add-fund-button, .liquidate-portfolio-button {
     font-size: 0.875rem;
