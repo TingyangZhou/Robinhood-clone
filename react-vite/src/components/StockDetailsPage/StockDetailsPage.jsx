@@ -55,7 +55,7 @@ const StockDetailsPage = () => {
     }, [dispatch, stockId]);
 
     useEffect(() => {
-        const calculatedShares = userStocks.find(stock => parseInt(stock.stock_id, 10) === parseInt(stockId, 10))?.share_quantity ?? 0;
+        const calculatedShares = userStocks?.find(stock => parseInt(stock.stock_id, 10) === parseInt(stockId, 10))?.share_quantity ?? 0;
         setSharesOwned(calculatedShares);
     }, [userStocks, stockId]);
 
@@ -70,7 +70,7 @@ const StockDetailsPage = () => {
 
     const sharesPurchasedVal = parseInt(sharesOrder, 10);
 
-    const averageUserStockValue = userStocks.find(stock => parseInt(stock.stock_id, 10) === parseInt(stockId, 10))?.share_price ?? 0;
+    const averageUserStockValue = userStocks?.find(stock => parseInt(stock.stock_id, 10) === parseInt(stockId, 10))?.share_price ?? 0;
 
     const isBuyButtonDisabled = cashBalance < marketPrice * sharesPurchasedVal || sharesPurchasedVal === 0;
     const isSellButtonDisabled = sharesOrder > sharesOwned || sharesOwned === 0 || sharesPurchasedVal === 0;
