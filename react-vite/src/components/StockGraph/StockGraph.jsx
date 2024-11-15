@@ -1,16 +1,28 @@
-import { useRef,  useState } from 'react';
+import { useEffect, useRef,  useState } from 'react';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Tooltip, CategoryScale } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
+
+
 
 
 ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip);
 
 
-export default function StockGraph( ) {
-    const currStockPrice = 42.56
+
+
+export default function StockGraph() {
+    const stockPrice = useSelector(state => state.stocks.currentStock.updated_price)
+    const [ pricesArr, setPricesArr ] = useState(["initial"])
     const chartRef = useRef(null);
-    let [initial ] = useState(getPricesArray())
-    const currColor = initial[0] > initial[initial.length - 1] ? "rgba(255, 0, 0, 1)" : "rgba(14, 170, 0, 1)"
+    const currColor = pricesArr[0] > pricesArr[pricesArr.length - 1] ? "rgba(255, 0, 0, 1)" : "rgba(14, 170, 0, 1)"
+
+
+    useEffect(() => {
+      setPricesArr(getPricesArray(stockPrice))
+    }, [stockPrice])
+
+
 
 
     function getDaysArray() {
@@ -32,9 +44,12 @@ export default function StockGraph( ) {
 
 
 
-    function getPricesArray () {
+
+
+
+
+    function getPricesArray (currPrice) {
       let res = []
-      let currPrice = currStockPrice
       for(let i = 0; i < 365 ; i ++){
           res.unshift(currPrice)
           currPrice = currPrice * (1 + (Math.random() * (0.1 - -0.1) + -0.1))
@@ -45,12 +60,16 @@ export default function StockGraph( ) {
 
 
 
+
+
+
+
     const data = {
       labels: getDaysArray(),
       datasets: [
         {
           label: undefined,
-          data: initial,
+          data: pricesArr,
           borderColor: currColor,
           borderWidth: 1,
           backgroundColor: currColor,
@@ -58,6 +77,8 @@ export default function StockGraph( ) {
         },
       ]
     };
+
+
 
 
     const options = {
@@ -99,6 +120,7 @@ export default function StockGraph( ) {
                 display: false,
               }
 
+
             },
             tooltip: {
                 enabled: true,
@@ -113,10 +135,13 @@ export default function StockGraph( ) {
     };
 
 
+
+
     return (
       <div style={{ width: '600px', margin: '0px' }}>
         <Line ref={chartRef} data={data} options={options} />
       </div>
     );
 }
+
 
