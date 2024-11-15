@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef,  useState } from 'react';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Tooltip, CategoryScale } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
@@ -9,7 +9,7 @@ ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip)
 export default function StockGraph( ) {
     const currStockPrice = 42.56
     const chartRef = useRef(null);
-    let [initial, setInitial] = useState(getPricesArray())
+    let [initial ] = useState(getPricesArray())
     const currColor = initial[0] > initial[initial.length - 1] ? "rgba(255, 0, 0, 1)" : "rgba(14, 170, 0, 1)"
 
 

@@ -7,7 +7,7 @@ import { getOneStockThunk } from "../../redux/stocks";
 import { getUserInfoThunk, updateUserBalanceThunk } from '../../redux/users';
 import { getUserStocksThunk, addUserStockThunk, removeUserStockThunk, updateUserStockThunk } from '../../redux/portfolio';
 import { getAllWatchlistThunk, addToWatchlistThunk, removeFromWatchlistThunk } from '../../redux/watchlist';
-import { useTheme } from '../../context/ThemeContext';
+// import { useTheme } from '../../context/ThemeContext';
 import StockGraph from "../StockGraph"
 import './StockDetailsPage.css';
 
@@ -29,13 +29,13 @@ const StockDetailsPage = () => {
     const [isSellButtonDisabled, setIsSellButtonDisabled] = useState(true);
 
     //!!! Stock chart code 1 starts here
-    const { isDarkMode } = useTheme();
-    const [imgPath, setImgPath] = useState('/images/dark-mode-graph.png');
+    // const { isDarkMode } = useTheme();
+    // const [imgPath, setImgPath] = useState('/images/dark-mode-graph.png');
 
-    useEffect(() => {
-        const path = isDarkMode ? '/images/dark-mode-graph.png' : '/images/light-mode-graph.png';
-        setImgPath(path);
-    }, [isDarkMode]);
+    // useEffect(() => {
+    //     const path = isDarkMode ? '/images/dark-mode-graph.png' : '/images/light-mode-graph.png';
+    //     // setImgPath(path);
+    // }, [isDarkMode]);
     
 
     // Dynamic States
