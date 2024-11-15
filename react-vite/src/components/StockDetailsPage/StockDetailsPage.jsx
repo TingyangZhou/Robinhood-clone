@@ -51,9 +51,9 @@ const StockDetailsPage = () => {
         setSharesOwned(calculatedShares);
     }, [userStocks, stockId]);
 
-    if (!sessionUser) {
-        return <Navigate to='/login'></Navigate>
-    }
+    // if (!sessionUser) {
+    //     return <Navigate to='/login'></Navigate>
+    // }
 
     // Static States
     const marketPrice = stock.updated_price;
@@ -88,6 +88,10 @@ const StockDetailsPage = () => {
         return <div>Loading...</div>
     }
 
+    if (!sessionUser) {
+        return <Navigate to='/login'></Navigate>
+    }
+
     // Handlers
     const refreshHandler = (shares) => {
         setSharesOrder(0);
@@ -103,19 +107,14 @@ const StockDetailsPage = () => {
     }
 
     const shareHandler = (event) => {
-        // if (event)
         const shareValue = event.target.value;
-        console.log('Data 1', shareValue, typeof shareValue);
-
         if (shareValue !== '') {
             if (parseInt(shareValue) < 0 || isNaN(parseInt(shareValue)) || shareValue.includes('.')) {
                 alert('Value has to be a positive integer');
                 event.target.value = 0
                 return
             }
-        } 
-        
-
+        }   
         setSharesOrder(shareValue);
         estimatedCostHandler(shareValue);
     };
