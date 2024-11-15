@@ -1,4 +1,4 @@
-import { useEffect, useRef,  useState } from 'react';
+import { useEffect,  useState } from 'react';
 import { Chart as ChartJS, LineElement, PointElement, LinearScale, Tooltip, CategoryScale } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
@@ -14,7 +14,6 @@ ChartJS.register(LineElement, PointElement, LinearScale, CategoryScale, Tooltip)
 export default function StockGraph() {
     const stockPrice = useSelector(state => state.stocks.currentStock.updated_price)
     const [ pricesArr, setPricesArr ] = useState(["initial"])
-    const chartRef = useRef(null);
     const currColor = pricesArr[0] > pricesArr[pricesArr.length - 1] ? "rgba(255, 0, 0, 1)" : "rgba(14, 170, 0, 1)"
 
 
@@ -139,7 +138,7 @@ export default function StockGraph() {
 
     return (
       <div style={{ width: '600px', margin: '0px' }}>
-        <Line ref={chartRef} data={data} options={options} />
+        <Line data={data} options={options} />
       </div>
     );
 }
