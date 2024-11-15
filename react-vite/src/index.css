@@ -46,3 +46,10 @@
     color: #ffffff; 
 }
 
+button{
+    cursor: pointer;
+}
+
+.dark-mode button{
+    cursor: pointer;
+}
