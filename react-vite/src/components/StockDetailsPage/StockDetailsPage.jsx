@@ -8,7 +8,9 @@ import { getUserInfoThunk, updateUserBalanceThunk } from '../../redux/users';
 import { getUserStocksThunk, addUserStockThunk, removeUserStockThunk, updateUserStockThunk } from '../../redux/portfolio';
 import { getAllWatchlistThunk, addToWatchlistThunk, removeFromWatchlistThunk } from '../../redux/watchlist';
 import { useTheme } from '../../context/ThemeContext';
+import StockGraph from "../StockGraph"
 import './StockDetailsPage.css';
+
 
 const StockDetailsPage = () => {
     const dispatch = useDispatch();
@@ -196,7 +198,8 @@ const StockDetailsPage = () => {
             <div className='left-menu'>                
                 <h3>{stock.company_name}</h3>
                 <div>${stock.updated_price}</div>
-                <div><img src={imgPath}></img></div>
+                {/* <div><img src={imgPath}></img></div> */}
+                <StockGraph />
                 <h3>About</h3>
                 <div>{stock.company_info}</div>
             </div>
