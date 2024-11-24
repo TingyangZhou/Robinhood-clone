@@ -1,4 +1,6 @@
-live site: https://robinstockclone.onrender.com
+Live site: https://robinstockclone.onrender.com
+
+The Robinhood Clone is a full-stack web application that replicates the core functionalities of the popular Robinhood trading platform. Users can view stock data, manage their portfolios, track investments, add funds, and trade stocks. For a detailed overview of features, please refer to the wiki: https://github.com/TingyangZhou/Robinhood-clone/wiki
 
 # Flask React Project
 
